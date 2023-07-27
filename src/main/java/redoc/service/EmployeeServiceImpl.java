@@ -49,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<EmployeePojo> findEmpListByLocation(String location) {
 		LOGGER.info("Calling findEmpListByLocation with location: {}", location);
-		List<Employee> empList = empRepo.findByEmpName(location);
+		List<Employee> empList = empRepo.findByEmpLocation(location);
 		List<EmployeePojo> empPojoList = Utility.mapToPojoList(empList);
 		return empPojoList;
 	}
