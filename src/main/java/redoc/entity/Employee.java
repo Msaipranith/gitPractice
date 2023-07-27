@@ -1,7 +1,5 @@
 package redoc.entity;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,12 +20,11 @@ public class Employee {
 	private String empName;
 	private String empLocation;
 	private String empEmail;
-	private BigDecimal salary;
+	private Double salary;
 //	
 //	"empName":"user",
 //	"empLocation":"hyd",
 //	"empEmail":"user-1@gmail.com",
-//	"salary":"50000"
-	
-	
+//	"salary":50000
+
 }
