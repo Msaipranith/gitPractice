@@ -87,5 +87,4 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
 
 	List<Employee> findByEmpLocationContainingOrSalaryLessThan(String location, Double salary);
 
-	
 }

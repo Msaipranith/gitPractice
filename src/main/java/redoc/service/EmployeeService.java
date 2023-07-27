@@ -2,89 +2,89 @@ package redoc.service;
 
 import java.util.List;
 
-import redoc.entity.Employee;
+import redoc.dto.EmployeePojo;
 
 public interface EmployeeService {
 
-	List<Employee> findEmpListBySalary(Double salary);
+	List<EmployeePojo> findEmpListBySalary(Double salary);
 
-	void saveEmpDetails(Employee emp);
+	void saveEmpDetails(EmployeePojo emp);
 
-	List<Employee> findEmpListByName(String name);
+	List<EmployeePojo> findEmpListByName(String name);
 
-	List<Employee> findEmpListByLocation(String location);
+	List<EmployeePojo> findEmpListByLocation(String location);
 
-	List<Employee> findEmpListByEmail(String email);
+	List<EmployeePojo> findEmpListByEmail(String email);
 
-	void saveListEmpDetails(List<Employee> emp);
+	void saveListEmpDetails(List<EmployeePojo> emp);
 
-	List<Employee> findEmpListSalaryRange(Double minValue, Double maxValue);
+	List<EmployeePojo> findEmpListSalaryRange(Double minValue, Double maxValue);
 
-	List<Employee> findByEmpSalaryLessThan(Double salary);
+	List<EmployeePojo> findByEmpSalaryLessThan(Double salary);
 
-	List<Employee> findByEmpSalaryGreaterThan(Double salary);
+	List<EmployeePojo> findByEmpSalaryGreaterThan(Double salary);
 
-	List<Employee> findEmpByNameAndLocation(String name, String location);
+	List<EmployeePojo> findEmpByNameAndLocation(String name, String location);
 
-	List<Employee> findByEmpNameAndSalaryGreaterThan(String name, Double salary);
+	List<EmployeePojo> findByEmpNameAndSalaryGreaterThan(String name, Double salary);
 
-	List<Employee> findByEmpLocationContainingOrSalaryLessThan(String location, Double salary);
+	List<EmployeePojo> findByEmpLocationContainingOrSalaryLessThan(String location, Double salary);
 
-	List<Employee> findByEmpNameAndEmpLocationAndSalaryBetween(String name, String location, Double minSal,
+	List<EmployeePojo> findByEmpNameAndEmpLocationAndSalaryBetween(String name, String location, Double minSal,
 			Double maxSal);
 
-	List<Employee> findByEmpNameOrEmpLocation(String name, String location);
+	List<EmployeePojo> findByEmpNameOrEmpLocation(String name, String location);
 
-	List<Employee> findByEmpNameIgnoreCase(String name);
+	List<EmployeePojo> findByEmpNameIgnoreCase(String name);
 
-	List<Employee> findByEmpLocationIgnoreCase(String location);
+	List<EmployeePojo> findByEmpLocationIgnoreCase(String location);
 
-	List<Employee> findByEmpEmailContaining(String subString);
+	List<EmployeePojo> findByEmpEmailContaining(String subString);
 
-	List<Employee> findByEmpNameOrderBySalaryAsc(String name);
+	List<EmployeePojo> findByEmpNameOrderBySalaryAsc(String name);
 
-	List<Employee> findByEmpNameOrderBySalaryDesc(String name);
+	List<EmployeePojo> findByEmpNameOrderBySalaryDesc(String name);
 
-	List<Employee> findByEmpLocationOrderByEmpNameAsc(String location);
+	List<EmployeePojo> findByEmpLocationOrderByEmpNameAsc(String location);
 
-	List<Employee> findByEmpLocationOrderByEmpNameDesc(String location);
+	List<EmployeePojo> findByEmpLocationOrderByEmpNameDesc(String location);
 
-	List<Employee> findBySalaryGreaterThanEqual(Double salary);
+	List<EmployeePojo> findBySalaryGreaterThanEqual(Double salary);
 
-	List<Employee> findBySalaryLessThanEqual(Double salary);
+	List<EmployeePojo> findBySalaryLessThanEqual(Double salary);
 
-	List<Employee> findBySalaryNot(Double salary);
+	List<EmployeePojo> findBySalaryNot(Double salary);
 
-	List<Employee> findByEmpNameContaining(String subString);
+	List<EmployeePojo> findByEmpNameContaining(String subString);
 
-	List<Employee> findByEmpLocationContaining(String subString);
+	List<EmployeePojo> findByEmpLocationContaining(String subString);
 
-	List<Employee> findByEmpEmailEndingWith(String domain);
+	List<EmployeePojo> findByEmpEmailEndingWith(String domain);
 
-	List<Employee> findByEmpEmailStartingWith(String prefix);
+	List<EmployeePojo> findByEmpEmailStartingWith(String prefix);
 
-	List<Employee> findBySalaryGreaterThanOrderByEmpNameAsc(Double salary);
+	List<EmployeePojo> findBySalaryGreaterThanOrderByEmpNameAsc(Double salary);
 
-	List<Employee> findBySalaryLessThanOrderByEmpNameAsc(Double salary);
+	List<EmployeePojo> findBySalaryLessThanOrderByEmpNameAsc(Double salary);
 
-	List<Employee> findByEmpLocationOrderBySalaryAsc(String location);
+	List<EmployeePojo> findByEmpLocationOrderBySalaryAsc(String location);
 
-	List<Employee> findByEmpEmailContainingOrderBySalaryDesc(String subString);
+	List<EmployeePojo> findByEmpEmailContainingOrderBySalaryDesc(String subString);
 
-	List<Employee> findByEmpNameIgnoreCaseContaining(String subString);
+	List<EmployeePojo> findByEmpNameIgnoreCaseContaining(String subString);
 
-	List<Employee> findByEmpLocationIgnoreCaseContaining(String subString);
+	List<EmployeePojo> findByEmpLocationIgnoreCaseContaining(String subString);
 
-	List<Employee> findBySalaryGreaterThanAndEmpLocationContaining(Double salary, String subString);
+	List<EmployeePojo> findBySalaryGreaterThanAndEmpLocationContaining(Double salary, String subString);
 
-	List<Employee> findByEmpNameContainingOrEmpEmailContaining(String nameSubstring, String emailSubstring);
+	List<EmployeePojo> findByEmpNameContainingOrEmpEmailContaining(String nameSubstring, String emailSubstring);
 
-	List<Employee> findByEmpNameContainingAndSalaryGreaterThan(String nameSubstring, Double salary);
+	List<EmployeePojo> findByEmpNameContainingAndSalaryGreaterThan(String nameSubstring, Double salary);
 
-	List<Employee> findByEmpNameContainingOrderBySalaryDesc(String nameSubstring);
+	List<EmployeePojo> findByEmpNameContainingOrderBySalaryDesc(String nameSubstring);
 
-	List<Employee> findByEmpLocationContainingOrderBySalaryAsc(String locationSubstring);
+	List<EmployeePojo> findByEmpLocationContainingOrderBySalaryAsc(String locationSubstring);
 
-	List<Employee> findByEmpLocationAndSalaryLessThan(String location, Double salary);
+	List<EmployeePojo> findByEmpLocationAndSalaryLessThan(String location, Double salary);
 
 }
