@@ -17,7 +17,11 @@ public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
+	
+	
 	private String empName;
+	
+	
 	private String empLocation;
 	private String empEmail;
 	private Double salary;
