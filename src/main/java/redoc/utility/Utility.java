@@ -10,7 +10,6 @@ import org.springframework.beans.BeanUtils;
 import redoc.controller.EmployeeController;
 import redoc.dto.EmployeePojo;
 import redoc.entity.Employee;
-import redoc.exception.EmployeeCommonException;
 
 public class Utility {
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
