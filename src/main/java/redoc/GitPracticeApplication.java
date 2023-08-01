@@ -15,6 +15,9 @@ import org.springframework.cache.annotation.EnableCaching;
 import redoc.entity.Employee;
 import redoc.repo.EmployeeRepo;
 
+
+
+@SuppressWarnings("deprecation")
 @SpringBootApplication
 @EnableCaching
 public class GitPracticeApplication implements CommandLineRunner {
@@ -62,5 +65,6 @@ public class GitPracticeApplication implements CommandLineRunner {
 		LOGGER.debug("Random location generated: {}", location);
 		return location;
 	}
-
+	
+	
 }

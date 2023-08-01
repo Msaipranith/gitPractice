@@ -9,19 +9,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
-	
-	
+
 	private String empName;
-	
-	
+
 	private String empLocation;
 	private String empEmail;
 	private Double salary;

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import redoc.dto.EmployeePojo;
 import redoc.exception.EmployeeCommonException;
 import redoc.service.EmployeeService;
-import redoc.utility.Utility;
 
 @RestController
 public class EmployeeController {
@@ -57,16 +56,17 @@ public class EmployeeController {
 	@GetMapping("/findEmployeesListBySalary")
 	public ResponseEntity<List<EmployeePojo>> findBySalary(
 			@RequestParam(value = "salary", defaultValue = "0") Double salary) throws EmployeeCommonException {
-		LOGGER.info("Received request to find employees with salary greater than: {}", salary);
+		LOGGER.info("Received request to find employees with salary: {}", salary);
 
-		List<EmployeePojo> employeesListBySalary = empService.findEmpListBySalary(salary);
+		List<EmployeePojo> empList = empService.findEmpListBySalary(salary);
 
-		if (employeesListBySalary.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with salary greater than: " + salary);
+		if (empList == null) {
+
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
-			LOGGER.info("Found {} employees with salary greater than: {}", employeesListBySalary.size(), salary);
+			LOGGER.info("Found {} employees with salary: {}", empList.size(), salary);
 
-			return new ResponseEntity<>(employeesListBySalary, HttpStatus.OK);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -76,8 +76,8 @@ public class EmployeeController {
 		LOGGER.info("Received request to find employees with name: {}", name);
 
 		List<EmployeePojo> employeesListByName = empService.findEmpListByName(name);
-		if (employeesListByName.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with name: " + name);
+		if (employeesListByName == null) {
+			return new ResponseEntity<>(employeesListByName, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with name: {}", employeesListByName.size(), name);
 
@@ -92,8 +92,8 @@ public class EmployeeController {
 
 		List<EmployeePojo> employeesByLocation = empService.findEmpListByLocation(location);
 
-		if (employeesByLocation.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with location: " + location);
+		if (employeesByLocation == null) {
+			return new ResponseEntity<>(employeesByLocation, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees in location: {}", employeesByLocation.size(), location);
 
@@ -107,8 +107,8 @@ public class EmployeeController {
 
 		List<EmployeePojo> employeesByEmail = empService.findEmpListByEmail(email);
 
-		if (employeesByEmail.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with email: " + email);
+		if (employeesByEmail == null) {
+			return new ResponseEntity<>(employeesByEmail, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with email: {}", employeesByEmail.size(), email);
 
@@ -122,8 +122,8 @@ public class EmployeeController {
 
 		List<EmployeePojo> employeesWithSalaryLessThan = empService.findByEmpSalaryLessThan(salary);
 
-		if (employeesWithSalaryLessThan.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with salary less than: " + salary);
+		if (employeesWithSalaryLessThan == null) {
+			return new ResponseEntity<>(employeesWithSalaryLessThan, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with salary less than: {}", employeesWithSalaryLessThan.size(), salary);
 
@@ -138,8 +138,8 @@ public class EmployeeController {
 
 		List<EmployeePojo> employeesWithSalaryGreaterThan = empService.findByEmpSalaryGreaterThan(salary);
 
-		if (employeesWithSalaryGreaterThan.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with salary greater than: " + salary);
+		if (employeesWithSalaryGreaterThan == null) {
+			return new ResponseEntity<>(employeesWithSalaryGreaterThan, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with salary greater than: {}", employeesWithSalaryGreaterThan.size(),
 					salary);
@@ -155,9 +155,8 @@ public class EmployeeController {
 
 		List<EmployeePojo> employeesInSalaryRange = empService.findEmpListSalaryRange(minValue, maxValue);
 
-		if (employeesInSalaryRange.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with salary between: " + " " + minValue + " " + maxValue);
+		if (employeesInSalaryRange == null) {
+			return new ResponseEntity<>(employeesInSalaryRange, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with salary between {} and {}", employeesInSalaryRange.size(), minValue,
 					maxValue);
@@ -173,9 +172,8 @@ public class EmployeeController {
 
 		List<EmployeePojo> employeesByNameAndLocation = empService.findEmpByNameAndLocation(name, location);
 
-		if (employeesByNameAndLocation.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with name and location: " + " " + name + " " + location);
+		if (employeesByNameAndLocation == null) {
+			return new ResponseEntity<>(employeesByNameAndLocation, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with name: {} and location: {}", employeesByNameAndLocation.size(), name,
 					location);
@@ -192,9 +190,8 @@ public class EmployeeController {
 		List<EmployeePojo> employeesByNameAndSalaryGreaterThan = empService.findByEmpNameAndSalaryGreaterThan(name,
 				salary);
 
-		if (employeesByNameAndSalaryGreaterThan.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with employee name and salary greater than: " + " " + name + " " + salary);
+		if (employeesByNameAndSalaryGreaterThan == null) {
+			return new ResponseEntity<>(employeesByNameAndSalaryGreaterThan, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with name: {} and salary greater than: {}",
 					employeesByNameAndSalaryGreaterThan.size(), name, salary);
@@ -210,9 +207,8 @@ public class EmployeeController {
 
 		List<EmployeePojo> employeesByLocationAndSalaryLessThan = empService
 				.findByEmpLocationAndSalaryLessThan(location, salary);
-		if (employeesByLocationAndSalaryLessThan.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found location and salary less than: " + location + " " + salary);
+		if (employeesByLocationAndSalaryLessThan == null) {
+			return new ResponseEntity<>(employeesByLocationAndSalaryLessThan, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees by location: {} and salary less than: {}",
 					employeesByLocationAndSalaryLessThan.size(), location, salary);
@@ -231,9 +227,8 @@ public class EmployeeController {
 		List<EmployeePojo> employeesByNameAndLocationAndSalaryBetween = empService
 				.findByEmpNameAndEmpLocationAndSalaryBetween(name, location, minSal, maxSal);
 
-		if (employeesByNameAndLocationAndSalaryBetween.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpNameAndEmpLocationAndSalaryBetween: " + name
-					+ " " + location + " " + minSal + " " + maxSal);
+		if (employeesByNameAndLocationAndSalaryBetween == null) {
+			return new ResponseEntity<>(employeesByNameAndLocationAndSalaryBetween, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees by name: {}, location: {}, and salary between: {} and {}",
 					employeesByNameAndLocationAndSalaryBetween.size(), name, location, minSal, maxSal);
@@ -249,9 +244,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpNameOrEmpLocation with name: {} and location: {}", name, location);
 		List<EmployeePojo> empList = empService.findByEmpNameOrEmpLocation(name, location);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with EmpNameOrEmpLocation: " + " " + name + " " + location);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		}
 		return ResponseEntity.ok(empList);
 	}
@@ -261,8 +255,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpNameIgnoreCase with name: {}", name);
 		List<EmployeePojo> empList = empService.findByEmpNameIgnoreCase(name);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpNameIgnoreCase: " + name);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpNameIgnoreCase: {}", empList.size(), name);
 
@@ -276,8 +270,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpLocationIgnoreCase with location: {}", location);
 		List<EmployeePojo> empList = empService.findByEmpLocationIgnoreCase(location);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpLocationIgnoreCase: " + location);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationIgnoreCase: {}", empList.size(), location);
 
@@ -290,8 +284,8 @@ public class EmployeeController {
 			@RequestParam(value = "subString") String subString) {
 		LOGGER.info("Calling findByEmpEmailContaining with subString: {}", subString);
 		List<EmployeePojo> empList = empService.findByEmpEmailContaining(subString);
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpEmailContaining: " + subString);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpEmailContaining: {}", empList.size(), subString);
 
@@ -304,8 +298,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpNameOrderBySalaryAsc with name: {}", name);
 		List<EmployeePojo> empList = empService.findByEmpNameOrderBySalaryAsc(name);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpNameOrderBySalaryAsc: " + name);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpNameOrderBySalaryAsc: {}", empList.size(), name);
 
@@ -319,8 +313,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpNameOrderBySalaryDesc with name: {}", name);
 		List<EmployeePojo> empList = empService.findByEmpNameOrderBySalaryDesc(name);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpNameOrderBySalaryDesc: " + name);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpNameOrderBySalaryDesc: {}", empList.size(), name);
 
@@ -334,8 +328,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpLocationOrderByEmpNameAsc with location: {}", location);
 		List<EmployeePojo> empList = empService.findByEmpLocationOrderByEmpNameAsc(location);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpLocationOrderByEmpNameAsc: " + location);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationOrderByEmpNameAsc: {}", empList.size(), location);
 
@@ -350,8 +344,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpLocationOrderByEmpNameDesc with location: {}", location);
 		List<EmployeePojo> empList = empService.findByEmpLocationOrderByEmpNameDesc(location);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpLocationOrderByEmpNameDesc: " + location);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationOrderByEmpNameDesc: {}", empList.size(), location);
 
@@ -365,8 +359,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findBySalaryGreaterThanEqual with salary: {}", salary);
 		List<EmployeePojo> empList = empService.findBySalaryGreaterThanEqual(salary);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with SalaryGreaterThanEqual: " + salary);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with SalaryGreaterThanEqual: {}", empList.size(), salary);
 
@@ -380,10 +374,10 @@ public class EmployeeController {
 		LOGGER.info("Calling findBySalaryLessThanEqual with salary: {}", salary);
 		List<EmployeePojo> empList = empService.findBySalaryLessThanEqual(salary);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with SalaryLessThanEqual: " + salary);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
-			LOGGER.info("Found {} employees with SalaryLessThanEqual: {}", empList.size(), salary);
+			LOGGER.info("Found {} employees with Salary Less Than Equal: {}", empList.size(), salary);
 
 			return ResponseEntity.ok(empList);
 		}
@@ -394,8 +388,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findBySalaryNot with salary: {}", salary);
 		List<EmployeePojo> empList = empService.findBySalaryNot(salary);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with SalaryNot: " + salary);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with SalaryNot: {}", empList.size(), salary);
 
@@ -409,8 +403,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpNameContaining with subString: {}", subString);
 		List<EmployeePojo> empList = empService.findByEmpNameContaining(subString);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpNameContaining: " + subString);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpNameContaining: {}", empList.size(), subString);
 
@@ -424,8 +418,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpLocationContaining with subString: {}", subString);
 		List<EmployeePojo> empList = empService.findByEmpLocationContaining(subString);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpLocationContaining: " + subString);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationContaining: {}", empList.size(), subString);
 
@@ -438,8 +432,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpEmailEndingWith with domain: {}", domain);
 		List<EmployeePojo> empList = empService.findByEmpEmailEndingWith(domain);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpEmailEndingWith: " + domain);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpEmailEndingWith: {}", empList.size(), domain);
 
@@ -453,8 +447,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpEmailStartingWith with prefix: {}", prefix);
 		List<EmployeePojo> empList = empService.findByEmpEmailStartingWith(prefix);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpEmailStartingWith: " + prefix);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpEmailStartingWith: {}", empList.size(), prefix);
 
@@ -468,8 +462,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findBySalaryGreaterThanOrderByEmpNameAsc with salary: {}", salary);
 		List<EmployeePojo> empList = empService.findBySalaryGreaterThanOrderByEmpNameAsc(salary);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with SalaryGreaterThanOrderByEmpNameAsc: " + salary);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with SalaryGreaterThanOrderByEmpNameAsc: {}", empList.size(), salary);
 
@@ -483,8 +477,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findBySalaryLessThanOrderByEmpNameAsc with salary: {}", salary);
 		List<EmployeePojo> empList = empService.findBySalaryLessThanOrderByEmpNameAsc(salary);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with SalaryLessThanOrderByEmpNameAsc: " + salary);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with SalaryLessThanOrderByEmpNameAsc: {}", empList.size(), salary);
 
@@ -499,8 +493,8 @@ public class EmployeeController {
 
 		List<EmployeePojo> empList = empService.findByEmpLocationOrderBySalaryAsc(location);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpLocationOrderBySalaryAsc: " + location);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationOrderBySalaryAsc: {}", empList.size(), location);
 
@@ -514,9 +508,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpEmailContainingOrderBySalaryDesc with subString: {}", subString);
 		List<EmployeePojo> empList = empService.findByEmpEmailContainingOrderBySalaryDesc(subString);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with EmpEmailContainingOrderBySalaryDesc: " + subString);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with SEmpEmailContainingOrderBySalaryDesc: {}", empList.size(), subString);
 
@@ -530,8 +523,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpNameIgnoreCaseContaining with subString: {}", subString);
 		List<EmployeePojo> empList = empService.findByEmpNameIgnoreCaseContaining(subString);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpNameIgnoreCaseContaining: " + subString);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpNameIgnoreCaseContaining: {}", empList.size(), subString);
 
@@ -545,8 +538,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpLocationIgnoreCaseContaining with subString: {}", subString);
 		List<EmployeePojo> empList = empService.findByEmpLocationIgnoreCaseContaining(subString);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpLocationIgnoreCaseContaining: " + subString);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationIgnoreCaseContaining: {}", empList.size(), subString);
 
@@ -561,9 +554,8 @@ public class EmployeeController {
 				subString);
 		List<EmployeePojo> empList = empService.findBySalaryGreaterThanAndEmpLocationContaining(salary, subString);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with SalaryGreaterThanAndEmpLocationContaining: " + salary + " " + subString);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with SalaryGreaterThan: {} And EmpLocation Containing:  , {}",
 					empList.size(), salary, subString);
@@ -581,9 +573,8 @@ public class EmployeeController {
 		List<EmployeePojo> empList = empService.findByEmpNameContainingOrEmpEmailContaining(nameSubstring,
 				emailSubstring);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpNameContainingOrEmpEmailContaining: "
-					+ nameSubstring + " " + emailSubstring);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpNameContaining: {} Or EmpEmailContaining: {}", empList.size(),
 					nameSubstring, emailSubstring);
@@ -599,9 +590,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpNameContainingAndSalaryGreaterThan with nameSubstring: {} and salary: {}",
 				nameSubstring, salary);
 		List<EmployeePojo> empList = empService.findByEmpNameContainingAndSalaryGreaterThan(nameSubstring, salary);
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with EmpNameContainingAndSalaryGreaterThan: " + nameSubstring + " " + salary);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpNameContaining: {} And SalaryGreaterThan: {}", empList.size(),
 					nameSubstring, salary);
@@ -610,6 +600,7 @@ public class EmployeeController {
 		}
 	}
 
+	@GetMapping("/findByEmpLocationContainingOrSalaryLessThan")
 	public ResponseEntity<List<EmployeePojo>> findByEmpLocationContainingOrSalaryLessThan(
 			@RequestParam(value = "locationSubstring") String locationSubstring,
 			@RequestParam(value = "salary") Double salary) {
@@ -617,9 +608,8 @@ public class EmployeeController {
 				locationSubstring, salary);
 		List<EmployeePojo> empList = empService.findByEmpLocationContainingOrSalaryLessThan(locationSubstring, salary);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException("No employees found with EmpLocationContainingOrSalaryLessThan: "
-					+ locationSubstring + " " + salary);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationContaining {} Or SalaryLessThan: {}", empList.size(),
 					locationSubstring, salary);
@@ -634,9 +624,8 @@ public class EmployeeController {
 		LOGGER.info("Calling findByEmpNameContainingOrderBySalaryDesc with nameSubstring: {}", nameSubstring);
 		List<EmployeePojo> empList = empService.findByEmpNameContainingOrderBySalaryDesc(nameSubstring);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with EmpNameContainingOrderBySalaryDesc: " + nameSubstring);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpNameContainingOrderBySalaryDesc: {}", empList.size(),
 					nameSubstring);
@@ -652,9 +641,8 @@ public class EmployeeController {
 				locationSubstring);
 		List<EmployeePojo> empList = empService.findByEmpLocationContainingOrderBySalaryAsc(locationSubstring);
 
-		if (empList.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with EmpLocationContainingOrderBySalaryAsc: " + locationSubstring);
+		if (empList == null) {
+			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationContaining {} OrderBySalaryAsc: {}", empList.size(),
 					locationSubstring);
