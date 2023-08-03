@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import redoc.dto.EmployeePojo;
 import redoc.exception.EmployeeCommonException;
 import redoc.service.EmployeeService;
@@ -31,7 +30,7 @@ public class EmployeeController {
 	public ResponseEntity<String> saveEmpDetails(@RequestBody EmployeePojo emp) {
 		LOGGER.info("Received request to save employee details: {}", emp);
 
-		empService.saveEmpDetails(emp);
+		 empService.saveEmpDetails(emp);
 
 		LOGGER.info("Employee details saved successfully");
 
@@ -112,7 +111,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with email: {}", employeesByEmail.size(), email);
 
-			return ResponseEntity.ok(employeesByEmail);
+			return new ResponseEntity<>(employeesByEmail, HttpStatus.OK);
 		}
 	}
 
@@ -127,7 +126,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with salary less than: {}", employeesWithSalaryLessThan.size(), salary);
 
-			return ResponseEntity.ok(employeesWithSalaryLessThan);
+			return new ResponseEntity<>(employeesWithSalaryLessThan, HttpStatus.OK);
 		}
 	}
 
@@ -144,7 +143,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees with salary greater than: {}", employeesWithSalaryGreaterThan.size(),
 					salary);
 
-			return ResponseEntity.ok(employeesWithSalaryGreaterThan);
+			return new ResponseEntity<>(employeesWithSalaryGreaterThan, HttpStatus.OK);
 		}
 	}
 
@@ -161,7 +160,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees with salary between {} and {}", employeesInSalaryRange.size(), minValue,
 					maxValue);
 
-			return ResponseEntity.ok(employeesInSalaryRange);
+			return new ResponseEntity<>(employeesInSalaryRange, HttpStatus.OK);
 		}
 	}
 
@@ -178,7 +177,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees with name: {} and location: {}", employeesByNameAndLocation.size(), name,
 					location);
 
-			return ResponseEntity.ok(employeesByNameAndLocation);
+			return new ResponseEntity<>(employeesByNameAndLocation, HttpStatus.OK);
 		}
 	}
 
@@ -196,7 +195,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees with name: {} and salary greater than: {}",
 					employeesByNameAndSalaryGreaterThan.size(), name, salary);
 
-			return ResponseEntity.ok(employeesByNameAndSalaryGreaterThan);
+			return new ResponseEntity<>(employeesByNameAndSalaryGreaterThan, HttpStatus.OK);
 		}
 	}
 
@@ -213,7 +212,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees by location: {} and salary less than: {}",
 					employeesByLocationAndSalaryLessThan.size(), location, salary);
 
-			return ResponseEntity.ok(employeesByLocationAndSalaryLessThan);
+			return new ResponseEntity<>(employeesByLocationAndSalaryLessThan, HttpStatus.OK);
 		}
 	}
 
@@ -233,7 +232,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees by name: {}, location: {}, and salary between: {} and {}",
 					employeesByNameAndLocationAndSalaryBetween.size(), name, location, minSal, maxSal);
 
-			return ResponseEntity.ok(employeesByNameAndLocationAndSalaryBetween);
+			return new ResponseEntity<>(employeesByNameAndLocationAndSalaryBetween, HttpStatus.OK);
 		}
 	}
 
@@ -247,7 +246,7 @@ public class EmployeeController {
 		if (empList == null) {
 			return new ResponseEntity<>(empList, HttpStatus.BAD_REQUEST);
 		}
-		return ResponseEntity.ok(empList);
+		return new ResponseEntity<>(empList, HttpStatus.OK);
 	}
 
 	@GetMapping("/findByEmpNameIgnoreCase")
@@ -260,7 +259,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpNameIgnoreCase: {}", empList.size(), name);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -275,7 +274,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationIgnoreCase: {}", empList.size(), location);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -289,7 +288,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpEmailContaining: {}", empList.size(), subString);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -303,7 +302,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpNameOrderBySalaryAsc: {}", empList.size(), name);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -318,7 +317,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpNameOrderBySalaryDesc: {}", empList.size(), name);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -333,7 +332,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationOrderByEmpNameAsc: {}", empList.size(), location);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 
 	}
@@ -349,7 +348,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationOrderByEmpNameDesc: {}", empList.size(), location);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -364,7 +363,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with SalaryGreaterThanEqual: {}", empList.size(), salary);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 
 	}
@@ -379,7 +378,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with Salary Less Than Equal: {}", empList.size(), salary);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -393,7 +392,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with SalaryNot: {}", empList.size(), salary);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -408,7 +407,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpNameContaining: {}", empList.size(), subString);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -423,7 +422,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationContaining: {}", empList.size(), subString);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -437,7 +436,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpEmailEndingWith: {}", empList.size(), domain);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -452,7 +451,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpEmailStartingWith: {}", empList.size(), prefix);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -467,7 +466,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with SalaryGreaterThanOrderByEmpNameAsc: {}", empList.size(), salary);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -482,7 +481,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with SalaryLessThanOrderByEmpNameAsc: {}", empList.size(), salary);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -498,7 +497,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationOrderBySalaryAsc: {}", empList.size(), location);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -513,7 +512,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with SEmpEmailContainingOrderBySalaryDesc: {}", empList.size(), subString);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -528,7 +527,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpNameIgnoreCaseContaining: {}", empList.size(), subString);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -543,7 +542,7 @@ public class EmployeeController {
 		} else {
 			LOGGER.info("Found {} employees with EmpLocationIgnoreCaseContaining: {}", empList.size(), subString);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -560,7 +559,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees with SalaryGreaterThan: {} And EmpLocation Containing:  , {}",
 					empList.size(), salary, subString);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -579,7 +578,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees with EmpNameContaining: {} Or EmpEmailContaining: {}", empList.size(),
 					nameSubstring, emailSubstring);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -596,7 +595,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees with EmpNameContaining: {} And SalaryGreaterThan: {}", empList.size(),
 					nameSubstring, salary);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -614,7 +613,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees with EmpLocationContaining {} Or SalaryLessThan: {}", empList.size(),
 					locationSubstring, salary);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -630,7 +629,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees with EmpNameContainingOrderBySalaryDesc: {}", empList.size(),
 					nameSubstring);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
@@ -647,7 +646,7 @@ public class EmployeeController {
 			LOGGER.info("Found {} employees with EmpLocationContaining {} OrderBySalaryAsc: {}", empList.size(),
 					locationSubstring);
 
-			return ResponseEntity.ok(empList);
+			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
 
