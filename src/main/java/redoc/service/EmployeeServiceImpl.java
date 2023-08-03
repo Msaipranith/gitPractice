@@ -145,8 +145,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		List<Employee> empList = empRepo.findEmpByEmpNameAndEmpLocation(name, location);
 		List<EmployeePojo> empPojoList = Utility.mapToPojoList(empList);
 		if (empPojoList.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with name:"  + name + " location " + location);
+			throw new EmployeeCommonException("No employees found with name:" + name + " location " + location);
 
 		} else {
 			return empPojoList;
@@ -329,8 +328,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		List<Employee> empList = empRepo.findBySalaryLessThanEqual(salary);
 		List<EmployeePojo> empPojoList = Utility.mapToPojoList(empList);
 		if (empPojoList.isEmpty()) {
-			throw new EmployeeCommonException(
-					"No employees found with Salary Less Than Or Equal: " + salary);
+			throw new EmployeeCommonException("No employees found with Salary Less Than Or Equal: " + salary);
 
 		} else {
 			return empPojoList;
