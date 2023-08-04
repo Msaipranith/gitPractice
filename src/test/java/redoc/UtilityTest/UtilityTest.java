@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import redoc.dto.EmployeePojo;
-
+import redoc.entity.Employee;
 
 public class UtilityTest {
 
@@ -25,8 +25,6 @@ public class UtilityTest {
 
 	private String domain = ".com";
 	private String prefix = "user";
-	
-	
 
 	public long getId() {
 		return id;
@@ -147,6 +145,14 @@ public class UtilityTest {
 	public static EmployeePojo empPojo() {
 
 		return new EmployeePojo(1l, "user", "hyd", "user@gmail.com", 50000.0);
+	}
+
+	public static List<Employee> employeeList() {
+		ArrayList<Employee> al = new ArrayList<>();
+		al.add(new Employee(1l, "pranith", "hyd", "pranith@gmail.com", 25000.0));
+		al.add(new Employee(2l, "sai", "chennai", "sai@gmail.com", 30000.0));
+// TODO Auto-generated method stub
+		return al;
 	}
 
 }
