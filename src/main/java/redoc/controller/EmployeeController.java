@@ -11,13 +11,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import redoc.dto.EmployeePojo;
+import redoc.entity.Employee;
 import redoc.exception.EmployeeCommonException;
 import redoc.service.EmployeeService;
 
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
@@ -649,5 +653,25 @@ public class EmployeeController {
 			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping("/findAllEmp")
+	public List<Employee> findAllEmp(){
+		return empService.findAllEmp();
+	}
+	
+	@GetMapping("/paginationEx")
+	public List<Employee> paginationEx(){
+	return empService.paginationEx();	
+	}
 
+	@GetMapping("/sortingEx")
+	public List<Employee> sortingEx(){
+	return empService.sortingEx();	
+	}
+	
+	@GetMapping("/paginationWithSortingEx")
+	public List<Employee> paginationWithSortingEx(){
+	return empService.paginationWithSortingEx();	
+	}
+	
 }

@@ -7,6 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import redoc.dto.EmployeePojo;
@@ -573,5 +576,46 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return empPojoList;
 		}
 	}
+
+	@Override
+	public List<Employee> paginationEx() {
+		PageRequest pageable = PageRequest.of(0, 15);
+
+		// Fetch a page of employees from the repository
+		Page<Employee> empPage = empRepo.findAll(pageable);
+
+		// Get the list of employees in the current page
+		List<Employee> employees = empPage.getContent();
+		return employees;
+		//return empRepo.findAll();
+	}
+	
+	@Override
+	public List<Employee> findAllEmp() {
+		// TODO Auto-generated method stub
+		return empRepo.findAll();
+	}
+
+	@Override
+	public List<Employee> sortingEx() {
+		Sort sort = Sort.by(Sort.Direction.DESC, "salary");
+		return empRepo.findAll(sort);
+	}
+
+	@Override
+	public List<Employee> paginationWithSortingEx() {
+		// Create a PageRequest object for page 1 with 10 records per page and sorted by price in descending order
+		PageRequest pageable = PageRequest.of(1, 10, Sort.by(Sort.Direction.DESC, "salary"));
+
+		// Fetch a sorted page of employees from the repository
+		Page<Employee> sortedEmpPage = empRepo.findAll(pageable);
+
+		// Get the list of employees in the current page
+		List<Employee> sortedEmployees = sortedEmpPage.getContent();
+
+		return sortedEmployees;
+	}
+
+	
 
 }

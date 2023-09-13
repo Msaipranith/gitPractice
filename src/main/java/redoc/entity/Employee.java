@@ -9,8 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 public class Employee {
 
@@ -52,6 +51,17 @@ public class Employee {
 	}
 	public void setSalary(Double salary) {
 		this.salary = salary;
+	}
+	public Employee(long id, String empName, String empLocation, String empEmail, Double salary) {
+		super();
+		this.id = id;
+		this.empName = empName;
+		this.empLocation = empLocation;
+		this.empEmail = empEmail;
+		this.salary = salary;
+	}
+	public Employee() {
+		super();
 	}
 	
 	

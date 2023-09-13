@@ -3,6 +3,7 @@ package redoc.service;
 import java.util.List;
 
 import redoc.dto.EmployeePojo;
+import redoc.entity.Employee;
 
 public interface EmployeeService {
 
@@ -86,5 +87,13 @@ public interface EmployeeService {
 	List<EmployeePojo> findByEmpLocationContainingOrderBySalaryAsc(String locationSubstring);
 
 	List<EmployeePojo> findByEmpLocationAndSalaryLessThan(String location, Double salary);
+
+	List<Employee> paginationEx();
+
+	List<Employee> sortingEx();
+
+	List<Employee> paginationWithSortingEx();
+
+	List<Employee> findAllEmp();
 
 }
