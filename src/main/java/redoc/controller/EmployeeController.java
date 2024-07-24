@@ -34,7 +34,7 @@ public class EmployeeController {
 	public ResponseEntity<String> saveEmpDetails(@RequestBody EmployeePojo emp) {
 		LOGGER.info("Received request to save employee details: {}", emp);
 
-		 empService.saveEmpDetails(emp);
+		empService.saveEmpDetails(emp);
 
 		LOGGER.info("Employee details saved successfully");
 
@@ -653,25 +653,25 @@ public class EmployeeController {
 			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping("/findAllEmp")
-	public List<Employee> findAllEmp(){
+	public List<Employee> findAllEmp() {
 		return empService.findAllEmp();
 	}
-	
+
 	@GetMapping("/paginationEx")
-	public List<Employee> paginationEx(){
-	return empService.paginationEx();	
+	public List<Employee> paginationEx() {
+		return empService.paginationEx();
 	}
 
 	@GetMapping("/sortingEx")
-	public List<Employee> sortingEx(){
-	return empService.sortingEx();	
+	public List<Employee> sortingEx() {
+		return empService.sortingEx();
 	}
-	
+
 	@GetMapping("/paginationWithSortingEx")
-	public List<Employee> paginationWithSortingEx(){
-	return empService.paginationWithSortingEx();	
+	public List<Employee> paginationWithSortingEx() {
+		return empService.paginationWithSortingEx();
 	}
-	
+
 }

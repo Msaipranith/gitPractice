@@ -2,6 +2,8 @@ package redoc.controller_test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import redoc.UtilityTest.UtilityTest;
 import redoc.controller.EmployeeController;
+import redoc.dto.EmployeePojo;
 import redoc.service.EmployeeService;
 
 @ExtendWith(SpringExtension.class)
@@ -31,8 +34,15 @@ public class EmployeeControllerTest {
 	@Order(1)
 	public void findBySalary_test() {
 
+
+		//List<EmployeePojo> empList = empService.findEmpListBySalary(salary);
+		//  .thenReturn()                           Mockito.when()
+		//method call in employeeController
+		
 		Mockito.when(service.findEmpListBySalary(utilityTest.getSalary())).thenReturn(UtilityTest.empList());
+		
 		assertEquals(UtilityTest.getResponse(), employeeController.findBySalary(utilityTest.getSalary()));
+	 //                 byte expected         , byte actual
 
 	};
 
