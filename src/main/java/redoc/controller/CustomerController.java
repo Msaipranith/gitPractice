@@ -12,10 +12,10 @@ import redoc.service.CustomerService;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-	
+
 	@Autowired
 	CustomerService customerService;
-	
+
 	@PostMapping("/saveCustomerDetails")
 	public String saveCustomerDetails(@RequestBody Customer customer) {
 		customerService.saveCustomerDetails(customer);
