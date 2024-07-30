@@ -587,9 +587,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		// Get the list of employees in the current page
 		List<Employee> employees = empPage.getContent();
 		return employees;
-		//return empRepo.findAll();
+		// return empRepo.findAll();
 	}
-	
+
 	@Override
 	public List<Employee> findAllEmp() {
 		// TODO Auto-generated method stub
@@ -604,7 +604,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> paginationWithSortingEx() {
-		// Create a PageRequest object for page 1 with 10 records per page and sorted by price in descending order
+		// Create a PageRequest object for page 1 with 10 records per page and sorted by
+		// price in descending order
 		PageRequest pageable = PageRequest.of(1, 10, Sort.by(Sort.Direction.DESC, "salary"));
 
 		// Fetch a sorted page of employees from the repository
@@ -616,6 +617,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return sortedEmployees;
 	}
 
-	
+	@Override
+	public List<Employee> customAPI(String location, String salary) {
+		// TODO Auto-generated method stub
+		return empRepo.customAPI(location, salary);
+	}
+
+	@Override
+	public Employee getEmpById(Long id) {
+		// TODO Auto-generated method stub
+
+		return empRepo.findById(id).orElseThrow(() -> new EmployeeCommonException(" no employee found with id " + id));
+
+	}
 
 }

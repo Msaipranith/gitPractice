@@ -1,7 +1,6 @@
 package redoc.exception;
 
 @SuppressWarnings("serial")
-
 public class EmployeeCommonException extends RuntimeException {
 	private String message;
 

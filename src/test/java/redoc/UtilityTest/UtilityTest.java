@@ -124,7 +124,7 @@ public class UtilityTest {
 
 	public static List<EmployeePojo> empList() {
 		// TODO Auto-generated method stub
-		ArrayList<EmployeePojo> al = new ArrayList<>();
+		List<EmployeePojo> al = new ArrayList<>();
 		al.add(new EmployeePojo(1l, "pranith", "hyd", "pranith@gmail.com", 25000.0));
 		al.add(new EmployeePojo(2l, "sai", "chennai", "sai@gmail.com", 30000.0));
 
@@ -135,6 +135,9 @@ public class UtilityTest {
 	public static ResponseEntity getResponse() {
 		return new ResponseEntity<>(UtilityTest.empList(), HttpStatus.OK);
 	}
+	
+	
+	
 
 	@SuppressWarnings("rawtypes")
 	public static ResponseEntity getNResponse() {

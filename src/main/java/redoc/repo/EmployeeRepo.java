@@ -3,6 +3,8 @@ package redoc.repo;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import redoc.entity.Employee;
@@ -86,5 +88,21 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
 	List<Employee> findByEmpLocationContainingOrderBySalaryAsc(String locationSubstring);
 
 	List<Employee> findByEmpLocationContainingOrSalaryLessThan(String location, Double salary);
+
+	// Using Native Query with param annotation
+//	@Query(value="SELECT * FROM EMPLOYEE WHERE emp_location=:location AND salary>=:salary", nativeQuery = true)
+//	List<Employee> customAPI(@Param("location") String location, @Param("salary") String salary);
+
+	// Using Native Query without param annotation passing  parameters directly
+//	@Query(value="SELECT * FROM EMPLOYEE WHERE emp_location=:location AND salary>=:salary", nativeQuery = true)
+//	List<Employee> customAPI(String location, String salary);
+
+	// Using JPQL with Named Parameters with param annotation
+//	@Query("SELECT e FROM Employee e WHERE e.empLocation = :location AND e.salary >= :salary")
+//	List<Employee> customAPI(@Param("location") String location, @Param("salary") String salary);
+
+	// Using JPQL with Positinal Parameters without param annotation
+	@Query("SELECT e FROM Employee e WHERE e.empLocation = ?1 AND e.salary >= ?2")
+	List<Employee> customAPI(String location, String salary);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import redoc.service.EmployeeService;
 @RequestMapping("/employee")
 public class EmployeeController {
 
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
@@ -34,7 +36,7 @@ public class EmployeeController {
 	public ResponseEntity<String> saveEmpDetails(@RequestBody EmployeePojo emp) {
 		LOGGER.info("Received request to save employee details: {}", emp);
 
-		 empService.saveEmpDetails(emp);
+		empService.saveEmpDetails(emp);
 
 		LOGGER.info("Employee details saved successfully");
 
@@ -653,25 +655,47 @@ public class EmployeeController {
 			return new ResponseEntity<>(empList, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping("/findAllEmp")
-	public List<Employee> findAllEmp(){
+	public List<Employee> findAllEmp() {
 		return empService.findAllEmp();
 	}
-	
+
 	@GetMapping("/paginationEx")
-	public List<Employee> paginationEx(){
-	return empService.paginationEx();	
+	public List<Employee> paginationEx() {
+		return empService.paginationEx();
 	}
 
 	@GetMapping("/sortingEx")
-	public List<Employee> sortingEx(){
-	return empService.sortingEx();	
+	public List<Employee> sortingEx() {
+		return empService.sortingEx();
 	}
-	
+
 	@GetMapping("/paginationWithSortingEx")
-	public List<Employee> paginationWithSortingEx(){
-	return empService.paginationWithSortingEx();	
+	public List<Employee> paginationWithSortingEx() {
+		return empService.paginationWithSortingEx();
 	}
 	
+	//with path variable
+//	@GetMapping("/cutsomAPI/{location}/{salary}")
+//	public List<Employee> customAPIMethod(@PathVariable String location, @PathVariable String salary) {
+//		return empService.customAPI(location, salary);
+//		
+//	}
+	
+	//with request param 
+	//url http://localhost:2222/employee/cutsomAPI?location=pune&salary=2500
+	@GetMapping("/cutsomAPI")
+	public List<Employee> customAPIMethod(@RequestParam String location, @RequestParam String salary) {
+		return empService.customAPI(location, salary);
+		
+	}
+	
+	
+	
+	@GetMapping("/findEmpById")
+	public Employee findEmpById(@RequestParam Long id) {
+		return empService.getEmpById(id);
+	}
+
 }
