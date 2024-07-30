@@ -25,7 +25,7 @@ import redoc.service.EmployeeService;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-	
+	// logger
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
@@ -675,24 +675,22 @@ public class EmployeeController {
 	public List<Employee> paginationWithSortingEx() {
 		return empService.paginationWithSortingEx();
 	}
-	
-	//with path variable
+
+	// with path variable
 //	@GetMapping("/cutsomAPI/{location}/{salary}")
 //	public List<Employee> customAPIMethod(@PathVariable String location, @PathVariable String salary) {
 //		return empService.customAPI(location, salary);
 //		
 //	}
-	
-	//with request param 
-	//url http://localhost:2222/employee/cutsomAPI?location=pune&salary=2500
+
+	// with request param
+	// url http://localhost:2222/employee/cutsomAPI?location=pune&salary=2500
 	@GetMapping("/cutsomAPI")
 	public List<Employee> customAPIMethod(@RequestParam String location, @RequestParam String salary) {
 		return empService.customAPI(location, salary);
-		
+
 	}
-	
-	
-	
+
 	@GetMapping("/findEmpById")
 	public Employee findEmpById(@RequestParam Long id) {
 		return empService.getEmpById(id);
