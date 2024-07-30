@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,6 @@ import redoc.service.EmployeeService;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-	
-	
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
@@ -675,6 +674,28 @@ public class EmployeeController {
 	@GetMapping("/paginationWithSortingEx")
 	public List<Employee> paginationWithSortingEx() {
 		return empService.paginationWithSortingEx();
+	}
+	
+	//with path variable
+//	@GetMapping("/cutsomAPI/{location}/{salary}")
+//	public List<Employee> customAPIMethod(@PathVariable String location, @PathVariable String salary) {
+//		return empService.customAPI(location, salary);
+//		
+//	}
+	
+	//with request param 
+	//url http://localhost:2222/employee/cutsomAPI?location=pune&salary=2500
+	@GetMapping("/cutsomAPI")
+	public List<Employee> customAPIMethod(@RequestParam String location, @RequestParam String salary) {
+		return empService.customAPI(location, salary);
+		
+	}
+	
+	
+	
+	@GetMapping("/findEmpById")
+	public Employee findEmpById(@RequestParam Long id) {
+		return empService.getEmpById(id);
 	}
 
 }

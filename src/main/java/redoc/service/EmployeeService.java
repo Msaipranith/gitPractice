@@ -96,4 +96,8 @@ public interface EmployeeService {
 
 	List<Employee> findAllEmp();
 
+	List<Employee> customAPI(String location, String salary);
+
+	Employee getEmpById(Long id);
+
 }
