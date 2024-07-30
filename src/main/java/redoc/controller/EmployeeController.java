@@ -24,7 +24,7 @@ import redoc.service.EmployeeService;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-	// logger used for logging information regarding method input
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
