@@ -22,5 +22,5 @@ public class CustomerController {
 		return "saved";
 	}
 }
-//controller class- updated in b2
-//pranith
+//updating controller class from b2
+
