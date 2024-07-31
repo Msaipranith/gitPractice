@@ -21,7 +21,6 @@ public class CustomerController {
 		customerService.saveCustomerDetails(customer);
 		return "saved";
 	}
-
 }
-
-//controller class
+//controller class- updated in b2
+//pranith
