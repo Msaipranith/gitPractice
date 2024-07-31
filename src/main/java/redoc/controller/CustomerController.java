@@ -13,6 +13,7 @@ import redoc.service.CustomerService;
 @RequestMapping("/customer")
 public class CustomerController {
 
+	
 	@Autowired
 	CustomerService customerService;
 
@@ -21,6 +22,8 @@ public class CustomerController {
 		customerService.saveCustomerDetails(customer);
 		return "saved";
 	}
+	
+	
 }
-//controller class- updated in b2
-//pranith
+//controller class- updated from b1
+
