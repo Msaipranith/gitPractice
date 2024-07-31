@@ -21,7 +21,7 @@ public class CustomerController {
 		customerService.saveCustomerDetails(customer);
 		return "saved";
 	}
-//customer controller
+
 }
 
 //controller class
