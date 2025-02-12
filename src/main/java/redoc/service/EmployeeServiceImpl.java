@@ -42,6 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void saveEmpDetails(EmployeePojo empPojo) {
+
 		LOGGER.info("Calling saveEmpDetails with empPojo: {}", empPojo);
 		Employee emp = new Employee();
 		BeanUtils.copyProperties(empPojo, emp);

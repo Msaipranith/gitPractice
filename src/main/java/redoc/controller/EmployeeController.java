@@ -23,16 +23,20 @@ import redoc.service.EmployeeService;
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
-	
+
 	// made changes in employeeController class from branch b1 in local repo
 
 	// logger
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
-	@Autowired
-	EmployeeService empService;
+	private final EmployeeService empService;
 
-// API to save employee details
+
+	public EmployeeController(EmployeeService empService) {
+		this.empService = empService;
+	}
+
+	// API to save employee details
 	@PostMapping("/saveEmpDetails")
 	public ResponseEntity<String> saveEmpDetails(@RequestBody EmployeePojo emp) {
 		LOGGER.info("Received request to save employee details: {}", emp);
