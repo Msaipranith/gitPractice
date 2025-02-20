@@ -1,4 +1,4 @@
-package redoc.utility;
+package redoc.utility_test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,9 @@ import lombok.Data;
 import redoc.dto.EmployeePojo;
 import redoc.entity.Employee;
 
-
 @Component
 @Data
-public class UtilityTest {
+public class Utility {
 
 	private long id = 1;
 	private String empName = "user-1";
@@ -32,7 +31,7 @@ public class UtilityTest {
 	private String prefix = "user";
 
 	public List<EmployeePojo> empList() {
-		
+
 		List<EmployeePojo> al = new ArrayList<>();
 		al.add(new EmployeePojo(1l, "pranith", "hyd", "pranith@gmail.com", 25000.0));
 		al.add(new EmployeePojo(2l, "sai", "chennai", "sai@gmail.com", 30000.0));
@@ -41,29 +40,26 @@ public class UtilityTest {
 	}
 
 	public ResponseEntity<List<EmployeePojo>> getResponse() {
-		
+
 		List<EmployeePojo> al = new ArrayList<>();
 		al.add(new EmployeePojo(1l, "pranith", "hyd", "pranith@gmail.com", 25000.0));
 		al.add(new EmployeePojo(2l, "sai", "chennai", "sai@gmail.com", 30000.0));
 
 		return new ResponseEntity<>(al, HttpStatus.OK);
 	}
-	
-	  
-	
 
 	@SuppressWarnings("rawtypes")
 	public ResponseEntity getNResponse() {
-		
-		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 
 	public EmployeePojo empPojo() {
 
 		return new EmployeePojo(1l, "user", "hyd", "user@gmail.com", 50000.0);
 	}
-
-	public  List<Employee> employeeList() {
+ 
+	public List<Employee> employeeList() {
 		ArrayList<Employee> al = new ArrayList<>();
 		al.add(new Employee(1l, "pranith", "hyd", "pranith@gmail.com", 25000.0));
 		al.add(new Employee(2l, "sai", "chennai", "sai@gmail.com", 30000.0));

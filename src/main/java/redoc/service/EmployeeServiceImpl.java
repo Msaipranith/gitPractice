@@ -138,9 +138,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		if (empPojoList.isEmpty()) {
 			throw new EmployeeCommonException("No employees found with salary greater than: " + salary);
 
-		} else {
-			return empPojoList;
 		}
+		return empPojoList;
+
 	}
 
 	@Override
