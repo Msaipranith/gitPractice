@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 
 
 @Entity
-public class Employee {
+public class Employee {  
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
