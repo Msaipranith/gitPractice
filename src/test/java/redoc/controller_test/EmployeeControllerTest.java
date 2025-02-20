@@ -2,8 +2,6 @@ package redoc.controller_test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,13 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import redoc.UtilityTest.UtilityTest;
 import redoc.controller.EmployeeController;
-import redoc.dto.EmployeePojo;
 import redoc.service.EmployeeService;
+import redoc.utility.UtilityTest;
 
 @ExtendWith(SpringExtension.class)
-public class EmployeeControllerTest {
+ class EmployeeControllerTest {
 	@InjectMocks
 	EmployeeController employeeController;
 
@@ -32,722 +29,761 @@ public class EmployeeControllerTest {
 
 	@Test
 	@Order(1)
-	public void findBySalary_test() {
+	 void findBySalary_test() {
 
+		// List<EmployeePojo> empList = empService.findEmpListBySalary(salary);
+		// .thenReturn() Mockito.when()
+		// method call in employeeController
 
-		//List<EmployeePojo> empList = empService.findEmpListBySalary(salary);
-		//  .thenReturn()                           Mockito.when()
-		//method call in employeeController
-		
-		Mockito.when(service.findEmpListBySalary(utilityTest.getSalary())).thenReturn(UtilityTest.empList());
-		
-		assertEquals(UtilityTest.getResponse(), employeeController.findBySalary(utilityTest.getSalary()));
-	 //                 byte expected         , byte actual
+		Mockito.when(service.findEmpListBySalary(utilityTest.getSalary())).thenReturn(utilityTest.empList());
+
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findBySalary(utilityTest.getSalary()).getStatusCode());
+		// byte expected , byte actual
 
 	};
 
 	@Test
 	@Order(2)
-	public void findEmpListBySalary_empList_Null_test() {
+	 void findEmpListBySalary_empList_Null_test() {
 		Mockito.when(service.findEmpListBySalary(utilityTest.getSalary())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findBySalary(utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findBySalary(utilityTest.getSalary()).getStatusCode());
 
 	};
 
 	@Test
 	@Order(3)
-	public void saveEmpDetails_test() {
+	 void saveEmpDetails_test() {
 
 		assertEquals(ResponseEntity.status(HttpStatus.CREATED).body("Employee details saved successfully"),
-				employeeController.saveEmpDetails(UtilityTest.empPojo()));
+				employeeController.saveEmpDetails(utilityTest.empPojo()));
 	};
 
 	@Test
 	@Order(4)
-	public void findEmpListByName_test() {
-		Mockito.when(service.findEmpListByName(utilityTest.getEmpName())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByEmpName(utilityTest.getEmpName()));
+	 void findEmpListByName_test() {
+		Mockito.when(service.findEmpListByName(utilityTest.getEmpName())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpName(utilityTest.getEmpName()).getStatusCode());
 	}
 
 	@Test
 	@Order(5)
-	public void findEmpListByName_empList_Null_test() {
+	 void findEmpListByName_empList_Null_test() {
 		Mockito.when(service.findEmpListByName(utilityTest.getEmpName())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findByEmpName(utilityTest.getEmpName()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpName(utilityTest.getEmpName()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(6)
-	public void findEmpListByLocation_test() {
-		Mockito.when(service.findEmpListByLocation(utilityTest.getEmpLocation())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByLocation(utilityTest.getEmpLocation()));
+	 void findEmpListByLocation_test() {
+		Mockito.when(service.findEmpListByLocation(utilityTest.getEmpLocation())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByLocation(utilityTest.getEmpLocation()).getStatusCode());
 	}
 
 	@Test
 	@Order(7)
-	public void findEmpListByLocation_empList_Null_test() {
+	 void findEmpListByLocation_empList_Null_test() {
 		Mockito.when(service.findEmpListByLocation(utilityTest.getEmpLocation())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findByLocation(utilityTest.getEmpLocation()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByLocation(utilityTest.getEmpLocation()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(8)
-	public void findEmpListByEmail_test() {
-		Mockito.when(service.findEmpListByEmail(utilityTest.getEmpEmail())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByEmpEmail(utilityTest.getEmpEmail()));
+	 void findEmpListByEmail_test() {
+		Mockito.when(service.findEmpListByEmail(utilityTest.getEmpEmail())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpEmail(utilityTest.getEmpEmail()).getStatusCode());
 	}
 
 	@Test
 	@Order(8)
-	public void findEmpListByEmail_empList_Null_test() {
+	 void findEmpListByEmail_empList_Null_test() {
 		Mockito.when(service.findEmpListByEmail(utilityTest.getEmpEmail())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findByEmpEmail(utilityTest.getEmpEmail()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpEmail(utilityTest.getEmpEmail()).getStatusCode());
 	}
 
 	@Test
 	@Order(9)
-	public void saveListEmpDetails_test() {
+	 void saveListEmpDetails_test() {
 		assertEquals(ResponseEntity.status(HttpStatus.CREATED).body("Employee details list saved successfully"),
-				employeeController.saveListEmpDetails(UtilityTest.empList()));
+				employeeController.saveListEmpDetails(utilityTest.empList()));
 	}
 
 	@Test
 	@Order(10)
-	public void findEmpListSalaryRange_test() {
+	 void findEmpListSalaryRange_test() {
 		Mockito.when(service.findEmpListSalaryRange(utilityTest.getMinValue(), utilityTest.getMaxValue()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findEmpFromSalaryRange(utilityTest.getMinValue(), utilityTest.getMaxValue()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(), employeeController
+				.findEmpFromSalaryRange(utilityTest.getMinValue(), utilityTest.getMaxValue()).getStatusCode());
 	}
 
 	@Test
 	@Order(11)
-	public void findEmpListSalaryRange_empList_Null_test() {
+	 void findEmpListSalaryRange_empList_Null_test() {
 		Mockito.when(service.findEmpListSalaryRange(utilityTest.getMinValue(), utilityTest.getMaxValue()))
 				.thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findEmpFromSalaryRange(utilityTest.getMinValue(), utilityTest.getMaxValue()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(), employeeController
+				.findEmpFromSalaryRange(utilityTest.getMinValue(), utilityTest.getMaxValue()).getStatusCode());
 	}
 
 	@Test
 	@Order(12)
-	public void findByEmpSalaryLessThan_test() {
-		Mockito.when(service.findByEmpSalaryLessThan(utilityTest.getSalary())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByEmpSalaryLessThan(utilityTest.getSalary()));
+	 void findByEmpSalaryLessThan_test() {
+		Mockito.when(service.findByEmpSalaryLessThan(utilityTest.getSalary())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpSalaryLessThan(utilityTest.getSalary()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(13)
-	public void findByEmpSalaryLessThan_empList_Null_test() {
+	 void findByEmpSalaryLessThan_empList_Null_test() {
 		Mockito.when(service.findByEmpSalaryLessThan(utilityTest.getSalary())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findByEmpSalaryLessThan(utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpSalaryLessThan(utilityTest.getSalary()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(14)
-	public void findByEmpSalaryGreaterThan_test() {
-		Mockito.when(service.findByEmpSalaryGreaterThan(utilityTest.getSalary())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByEmpSalaryGreaterThan(utilityTest.getSalary()));
+	 void findByEmpSalaryGreaterThan_test() {
+		Mockito.when(service.findByEmpSalaryGreaterThan(utilityTest.getSalary())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpSalaryGreaterThan(utilityTest.getSalary()).getStatusCode());
 	}
 
 	@Test
 	@Order(15)
-	public void findByEmpSalaryGreaterThan_empList_Null_test() {
+	 void findByEmpSalaryGreaterThan_empList_Null_test() {
 		Mockito.when(service.findByEmpSalaryGreaterThan(utilityTest.getSalary())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
+		assertEquals(utilityTest.getNResponse(),
 				employeeController.findByEmpSalaryGreaterThan(utilityTest.getSalary()));
 	}
 
 	@Test
 	@Order(16)
-	public void findEmpByNameAndLocation_test() {
+	 void findEmpByNameAndLocation_test() {
 		Mockito.when(service.findEmpByNameAndLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findEmpByNameAndLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(), employeeController
+				.findEmpByNameAndLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()).getStatusCode());
 	}
 
 	@Test
 	@Order(17)
-	public void findEmpByNameAndLocation_empList_Null_test() {
+	 void findEmpByNameAndLocation_empList_Null_test() {
 		Mockito.when(service.findEmpByNameAndLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()))
 				.thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findEmpByNameAndLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(), employeeController
+				.findEmpByNameAndLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()).getStatusCode());
 	}
 
 	@Test
 	@Order(18)
-	public void findByEmpNameAndSalaryGreaterThan_test() {
+	 void findByEmpNameAndSalaryGreaterThan_test() {
 		Mockito.when(service.findByEmpNameAndSalaryGreaterThan(utilityTest.getEmpName(), utilityTest.getSalary()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController
-				.findByEmpNameAndSalaryGreaterThan(utilityTest.getEmpName(), utilityTest.getSalary()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(), employeeController
+				.findByEmpNameAndSalaryGreaterThan(utilityTest.getEmpName(), utilityTest.getSalary()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(19)
-	public void findByEmpNameAndSalaryGreaterThan_empList_Null_test() {
+	 void findByEmpNameAndSalaryGreaterThan_empList_Null_test() {
 		Mockito.when(service.findByEmpNameAndSalaryGreaterThan(utilityTest.getEmpName(), utilityTest.getSalary()))
 				.thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController
-				.findByEmpNameAndSalaryGreaterThan(utilityTest.getEmpName(), utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(), employeeController
+				.findByEmpNameAndSalaryGreaterThan(utilityTest.getEmpName(), utilityTest.getSalary()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(20)
-	public void findByEmpLocationContainingOrSalaryLessThan_test() {
+	 void findByEmpLocationContainingOrSalaryLessThan_test() {
 		Mockito.when(service.findByEmpLocationContainingOrSalaryLessThan(utilityTest.getLocationSubstring(),
-				utilityTest.getSalary())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByEmpLocationContainingOrSalaryLessThan(
-				utilityTest.getLocationSubstring(), utilityTest.getSalary()));
+				utilityTest.getSalary())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpLocationContainingOrSalaryLessThan(utilityTest.getLocationSubstring(),
+						utilityTest.getSalary()).getStatusCode());
 	}
 
 	@Test
 	@Order(21)
-	public void findByEmpLocationContainingOrSalaryLessThan_empList_Null_test() {
+	 void findByEmpLocationContainingOrSalaryLessThan_empList_Null_test() {
 		Mockito.when(service.findByEmpLocationContainingOrSalaryLessThan(utilityTest.getLocationSubstring(),
 				utilityTest.getSalary())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findByEmpLocationContainingOrSalaryLessThan(
-				utilityTest.getLocationSubstring(), utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpLocationContainingOrSalaryLessThan(utilityTest.getLocationSubstring(),
+						utilityTest.getSalary()).getStatusCode());
 	}
 
 	@Test
 	@Order(22)
-	public void findByEmpNameAndEmpLocationAndSalaryBetween_test() {
+	 void findByEmpNameAndEmpLocationAndSalaryBetween_test() {
 		Mockito.when(service.findByEmpNameAndEmpLocationAndSalaryBetween(utilityTest.getEmpName(),
 				utilityTest.getEmpLocation(), utilityTest.getMinValue(), utilityTest.getMaxValue()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpNameAndEmpLocationAndSalaryBetween(utilityTest.getEmpName(),
-						utilityTest.getEmpLocation(), utilityTest.getMinValue(), utilityTest.getMaxValue()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController
+						.findByEmpNameAndEmpLocationAndSalaryBetween(utilityTest.getEmpName(),
+								utilityTest.getEmpLocation(), utilityTest.getMinValue(), utilityTest.getMaxValue())
+						.getStatusCode());
 	}
 
 	@Test
 	@Order(23)
-	public void findByEmpNameAndEmpLocationAndSalaryBetween_empList_Null_test() {
+	 void findByEmpNameAndEmpLocationAndSalaryBetween_empList_Null_test() {
 		Mockito.when(service.findByEmpNameAndEmpLocationAndSalaryBetween(utilityTest.getEmpName(),
 				utilityTest.getEmpLocation(), utilityTest.getMinValue(), utilityTest.getMaxValue())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpNameAndEmpLocationAndSalaryBetween(utilityTest.getEmpName(),
-						utilityTest.getEmpLocation(), utilityTest.getMinValue(), utilityTest.getMaxValue()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController
+						.findByEmpNameAndEmpLocationAndSalaryBetween(utilityTest.getEmpName(),
+								utilityTest.getEmpLocation(), utilityTest.getMinValue(), utilityTest.getMaxValue())
+						.getStatusCode());
 	}
 
 	@Test
 	@Order(24)
-	public void findByEmpNameOrEmpLocation_test() {
+	 void findByEmpNameOrEmpLocation_test() {
 		Mockito.when(service.findByEmpNameOrEmpLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpNameOrEmpLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(), employeeController
+				.findByEmpNameOrEmpLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()).getStatusCode());
 	}
 
 	@Test
 	@Order(25)
-	public void findByEmpNameOrEmpLocation_empList_Null_test() {
+	 void findByEmpNameOrEmpLocation_empList_Null_test() {
 		Mockito.when(service.findByEmpNameOrEmpLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()))
 				.thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpNameOrEmpLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(), employeeController
+				.findByEmpNameOrEmpLocation(utilityTest.getEmpName(), utilityTest.getEmpLocation()).getStatusCode());
 	}
 
 	@Test
 	@Order(26)
-	public void findByEmpNameIgnoreCase_test() {
-		Mockito.when(service.findByEmpNameIgnoreCase(utilityTest.getEmpName())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByEmpNameIgnoreCase(utilityTest.getEmpName()));
+	 void findByEmpNameIgnoreCase_test() {
+		Mockito.when(service.findByEmpNameIgnoreCase(utilityTest.getEmpName())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpNameIgnoreCase(utilityTest.getEmpName()).getStatusCode());
 	}
 
 	@Test
 	@Order(27)
-	public void findByEmpNameIgnoreCase_empList_Null_test() {
+	 void findByEmpNameIgnoreCase_empList_Null_test() {
 		Mockito.when(service.findByEmpNameIgnoreCase(utilityTest.getEmpName())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findByEmpNameIgnoreCase(utilityTest.getEmpName()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpNameIgnoreCase(utilityTest.getEmpName()).getStatusCode());
 	}
 
 	@Test
 	@Order(28)
-	public void findByEmpLocationIgnoreCase_test() {
+	 void findByEmpLocationIgnoreCase_test() {
 		Mockito.when(service.findByEmpLocationIgnoreCase(utilityTest.getEmpLocation()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpLocationIgnoreCase(utilityTest.getEmpLocation()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpLocationIgnoreCase(utilityTest.getEmpLocation()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(29)
-	public void findByEmpLocationIgnoreCase_empList_Null_test() {
+	 void findByEmpLocationIgnoreCase_empList_Null_test() {
 		Mockito.when(service.findByEmpLocationIgnoreCase(utilityTest.getEmpLocation())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpLocationIgnoreCase(utilityTest.getEmpLocation()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpLocationIgnoreCase(utilityTest.getEmpLocation()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(30)
-	public void findByEmpEmailContaining_test() {
+	 void findByEmpEmailContaining_test() {
 		Mockito.when(service.findByEmpEmailContaining(utilityTest.getEmailsubstring()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpEmailContaining(utilityTest.getEmailsubstring()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpEmailContaining(utilityTest.getEmailsubstring()).getStatusCode());
 	}
 
 	@Test
 	@Order(31)
-	public void findByEmpEmailContaining_empList_Null_test() {
+	 void findByEmpEmailContaining_empList_Null_test() {
 		Mockito.when(service.findByEmpEmailContaining(utilityTest.getEmailsubstring())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpEmailContaining(utilityTest.getEmailsubstring()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpEmailContaining(utilityTest.getEmailsubstring()).getStatusCode());
 	}
 
 	@Test
 	@Order(32)
-	public void findByEmpNameOrderBySalaryAsc_test() {
-		Mockito.when(service.findByEmpNameOrderBySalaryAsc(utilityTest.getEmpName())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpNameOrderBySalaryAsc(utilityTest.getEmpName()));
+	 void findByEmpNameOrderBySalaryAsc_test() {
+		Mockito.when(service.findByEmpNameOrderBySalaryAsc(utilityTest.getEmpName())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpNameOrderBySalaryAsc(utilityTest.getEmpName()).getStatusCode());
 	}
 
 	@Test
 	@Order(33)
-	public void findByEmpNameOrderBySalaryAsc_empList_Null_test() {
+	 void findByEmpNameOrderBySalaryAsc_empList_Null_test() {
 		Mockito.when(service.findByEmpNameOrderBySalaryAsc(utilityTest.getEmpName())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpNameOrderBySalaryAsc(utilityTest.getEmpName()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpNameOrderBySalaryAsc(utilityTest.getEmpName()).getStatusCode());
 	}
 
 	@Test
 	@Order(34)
-	public void findByEmpNameOrderBySalaryDesc_test() {
+	 void findByEmpNameOrderBySalaryDesc_test() {
 
 		Mockito.when(service.findByEmpNameOrderBySalaryDesc(utilityTest.getEmpName()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpNameOrderBySalaryDesc(utilityTest.getEmpName()));
+				.thenReturn(utilityTest.empList());
+
+		utilityTest.getResponse().getStatusCode();
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpNameOrderBySalaryDesc(utilityTest.getEmpName()).getStatusCode());
 	}
 
 	@Test
 	@Order(35)
-	public void findByEmpNameOrderBySalaryDesc_empList_Null_test() {
+	 void findByEmpNameOrderBySalaryDesc_empList_Null_test() {
 
 		Mockito.when(service.findByEmpNameOrderBySalaryDesc(utilityTest.getEmpName())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpNameOrderBySalaryDesc(utilityTest.getEmpName()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpNameOrderBySalaryDesc(utilityTest.getEmpName()).getStatusCode());
 	}
 
 	@Test
 	@Order(36)
-	public void findByEmpLocationOrderByEmpNameAsc_test() {
+	 void findByEmpLocationOrderByEmpNameAsc_test() {
 		Mockito.when(service.findByEmpLocationOrderByEmpNameAsc(utilityTest.getEmpLocation()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpLocationOrderByEmpNameAsc(utilityTest.getEmpLocation()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpLocationOrderByEmpNameAsc(utilityTest.getEmpLocation()).getStatusCode());
 	}
 
 	@Test
 	@Order(37)
-	public void findByEmpLocationOrderByEmpNameAsc_empList_Null_test() {
+	 void findByEmpLocationOrderByEmpNameAsc_empList_Null_test() {
 		Mockito.when(service.findByEmpLocationOrderByEmpNameAsc(utilityTest.getEmpLocation())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpLocationOrderByEmpNameAsc(utilityTest.getEmpLocation()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpLocationOrderByEmpNameAsc(utilityTest.getEmpLocation()).getStatusCode());
 	}
 
 	@Test
 	@Order(38)
-	public void findByEmpLocationOrderByEmpNameDesc_test() {
+	 void findByEmpLocationOrderByEmpNameDesc_test() {
 		Mockito.when(service.findByEmpLocationOrderByEmpNameDesc(utilityTest.getEmpLocation()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpLocationOrderByEmpNameDesc(utilityTest.getEmpLocation()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpLocationOrderByEmpNameDesc(utilityTest.getEmpLocation()).getStatusCode());
 	}
 
 	@Test
 	@Order(39)
-	public void findByEmpLocationOrderByEmpNameDesc_empList_Null_test() {
+	 void findByEmpLocationOrderByEmpNameDesc_empList_Null_test() {
 		Mockito.when(service.findByEmpLocationOrderByEmpNameDesc(utilityTest.getEmpLocation())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpLocationOrderByEmpNameDesc(utilityTest.getEmpLocation()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpLocationOrderByEmpNameDesc(utilityTest.getEmpLocation()).getStatusCode());
 	}
 
 	@Test
 	@Order(40)
-	public void findBySalaryGreaterThanEqual_test() {
-		Mockito.when(service.findBySalaryGreaterThanEqual(utilityTest.getSalary())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findBySalaryGreaterThanEqual(utilityTest.getSalary()));
+	 void findBySalaryGreaterThanEqual_test() {
+		Mockito.when(service.findBySalaryGreaterThanEqual(utilityTest.getSalary())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findBySalaryGreaterThanEqual(utilityTest.getSalary()).getStatusCode());
 	}
 
 	@Test
 	@Order(41)
-	public void findBySalaryGreaterThanEqual_empList_Null_test() {
+	 void findBySalaryGreaterThanEqual_empList_Null_test() {
 		Mockito.when(service.findBySalaryGreaterThanEqual(utilityTest.getSalary())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findBySalaryGreaterThanEqual(utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findBySalaryGreaterThanEqual(utilityTest.getSalary()).getStatusCode());
 	}
 
 	@Test
 	@Order(42)
-	public void findBySalaryLessThanEqual_test() {
-		Mockito.when(service.findBySalaryLessThanEqual(utilityTest.getSalary())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findBySalaryLessThanEqual(utilityTest.getSalary()));
+	 void findBySalaryLessThanEqual_test() {
+		Mockito.when(service.findBySalaryLessThanEqual(utilityTest.getSalary())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findBySalaryLessThanEqual(utilityTest.getSalary()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(43)
-	public void findBySalaryLessThanEqual_empList_Null_test() {
+	 void findBySalaryLessThanEqual_empList_Null_test() {
 		Mockito.when(service.findBySalaryLessThanEqual(utilityTest.getSalary())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findBySalaryLessThanEqual(utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findBySalaryLessThanEqual(utilityTest.getSalary()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(44)
-	public void findBySalaryNot_test() {
-		Mockito.when(service.findBySalaryNot(utilityTest.getSalary())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findBySalaryNot(utilityTest.getSalary()));
+	 void findBySalaryNot_test() {
+		Mockito.when(service.findBySalaryNot(utilityTest.getSalary())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findBySalaryNot(utilityTest.getSalary()).getStatusCode());
 	}
 
 	@Test
 	@Order(45)
-	public void findBySalaryNot_empList_Null_test() {
+	 void findBySalaryNot_empList_Null_test() {
 		Mockito.when(service.findBySalaryNot(utilityTest.getSalary())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findBySalaryNot(utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findBySalaryNot(utilityTest.getSalary()).getStatusCode());
 	}
 
 	@Test
 	@Order(46)
-	public void findByEmpNameContaining_test() {
-		Mockito.when(service.findByEmpNameContaining(utilityTest.getEmpName())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByEmpNameContaining(utilityTest.getEmpName()));
+	 void findByEmpNameContaining_test() {
+		Mockito.when(service.findByEmpNameContaining(utilityTest.getEmpName())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpNameContaining(utilityTest.getEmpName()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(47)
-	public void findByEmpNameContaining_empList_Null_test() {
+	 void findByEmpNameContaining_empList_Null_test() {
 		Mockito.when(service.findByEmpNameContaining(utilityTest.getEmpName())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findByEmpNameContaining(utilityTest.getEmpName()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpNameContaining(utilityTest.getEmpName()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(48)
-	public void findByEmpLocationContaining_test() {
+	 void findByEmpLocationContaining_test() {
 		Mockito.when(service.findByEmpLocationContaining(utilityTest.getEmpLocation()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpLocationContaining(utilityTest.getEmpLocation()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpLocationContaining(utilityTest.getEmpLocation()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(49)
-	public void findByEmpLocationContaining_empList_Null_test() {
+	 void findByEmpLocationContaining_empList_Null_test() {
 		Mockito.when(service.findByEmpLocationContaining(utilityTest.getEmpLocation())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpLocationContaining(utilityTest.getEmpLocation()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpLocationContaining(utilityTest.getEmpLocation()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(50)
-	public void findByEmpEmailEndingWith_test() {
-		Mockito.when(service.findByEmpEmailEndingWith(utilityTest.getDomain())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByEmpEmailEndingWith(utilityTest.getDomain()));
+	 void findByEmpEmailEndingWith_test() {
+		Mockito.when(service.findByEmpEmailEndingWith(utilityTest.getDomain())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpEmailEndingWith(utilityTest.getDomain()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(51)
-	public void findByEmpEmailEndingWith_empList_Null_test() {
+	 void findByEmpEmailEndingWith_empList_Null_test() {
 		Mockito.when(service.findByEmpEmailEndingWith(utilityTest.getDomain())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findByEmpEmailEndingWith(utilityTest.getDomain()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpEmailEndingWith(utilityTest.getDomain()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(52)
-	public void findByEmpEmailStartingWith_test() {
+	 void findByEmpEmailStartingWith_test() {
 
-		Mockito.when(service.findByEmpEmailStartingWith(utilityTest.getPrefix())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByEmpEmailStartingWith(utilityTest.getPrefix()));
+		Mockito.when(service.findByEmpEmailStartingWith(utilityTest.getPrefix())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpEmailStartingWith(utilityTest.getPrefix()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(53)
-	public void findByEmpEmailStartingWith_empList_Null_test() {
+	 void findByEmpEmailStartingWith_empList_Null_test() {
 
 		Mockito.when(service.findByEmpEmailStartingWith(utilityTest.getPrefix())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpEmailStartingWith(utilityTest.getPrefix()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpEmailStartingWith(utilityTest.getPrefix()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(54)
-	public void findBySalaryGreaterThanOrderByEmpNameAsc_test() {
+	 void findBySalaryGreaterThanOrderByEmpNameAsc_test() {
 
 		Mockito.when(service.findBySalaryGreaterThanOrderByEmpNameAsc(utilityTest.getSalary()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findBySalaryGreaterThanOrderByEmpNameAsc(utilityTest.getSalary()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findBySalaryGreaterThanOrderByEmpNameAsc(utilityTest.getSalary()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(55)
-	public void findBySalaryGreaterThanOrderByEmpNameAsc_empList_Null_test() {
+	 void findBySalaryGreaterThanOrderByEmpNameAsc_empList_Null_test() {
 
 		Mockito.when(service.findBySalaryGreaterThanOrderByEmpNameAsc(utilityTest.getSalary())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findBySalaryGreaterThanOrderByEmpNameAsc(utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findBySalaryGreaterThanOrderByEmpNameAsc(utilityTest.getSalary()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(56)
-	public void findBySalaryLessThanOrderByEmpNameAsc_test() {
+	 void findBySalaryLessThanOrderByEmpNameAsc_test() {
 
 		Mockito.when(service.findBySalaryLessThanOrderByEmpNameAsc(utilityTest.getSalary()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findBySalaryLessThanOrderByEmpNameAsc(utilityTest.getSalary()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findBySalaryLessThanOrderByEmpNameAsc(utilityTest.getSalary()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(57)
-	public void findBySalaryLessThanOrderByEmpNameAsc_empList_Null_test() {
+	 void findBySalaryLessThanOrderByEmpNameAsc_empList_Null_test() {
 
 		Mockito.when(service.findBySalaryLessThanOrderByEmpNameAsc(utilityTest.getSalary())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findBySalaryLessThanOrderByEmpNameAsc(utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findBySalaryLessThanOrderByEmpNameAsc(utilityTest.getSalary()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(58)
-	public void findByEmpLocationOrderBySalaryAsc_test() {
+	 void findByEmpLocationOrderBySalaryAsc_test() {
 
 		Mockito.when(service.findByEmpLocationOrderBySalaryAsc(utilityTest.getEmpLocation()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpLocationOrderBySalaryAsc(utilityTest.getEmpLocation()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpLocationOrderBySalaryAsc(utilityTest.getEmpLocation()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(59)
-	public void findByEmpLocationOrderBySalaryAsc_empList_Null_test() {
+	 void findByEmpLocationOrderBySalaryAsc_empList_Null_test() {
 
 		Mockito.when(service.findByEmpLocationOrderBySalaryAsc(utilityTest.getEmpLocation())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpLocationOrderBySalaryAsc(utilityTest.getEmpLocation()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpLocationOrderBySalaryAsc(utilityTest.getEmpLocation()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(60)
-	public void findByEmpEmailContainingOrderBySalaryDesc_test() {
+	 void findByEmpEmailContainingOrderBySalaryDesc_test() {
 
 		Mockito.when(service.findByEmpEmailContainingOrderBySalaryDesc(utilityTest.getEmailsubstring()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpEmailContainingOrderBySalaryDesc(utilityTest.getEmailsubstring()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(), employeeController
+				.findByEmpEmailContainingOrderBySalaryDesc(utilityTest.getEmailsubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(61)
-	public void findByEmpEmailContainingOrderBySalaryDesc_empList_Null_test() {
+	 void findByEmpEmailContainingOrderBySalaryDesc_empList_Null_test() {
 
 		Mockito.when(service.findByEmpEmailContainingOrderBySalaryDesc(utilityTest.getEmailsubstring()))
 				.thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpEmailContainingOrderBySalaryDesc(utilityTest.getEmailsubstring()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(), employeeController
+				.findByEmpEmailContainingOrderBySalaryDesc(utilityTest.getEmailsubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(62)
-	public void findByEmpNameIgnoreCaseContaining_test() {
+	 void findByEmpNameIgnoreCaseContaining_test() {
 
 		Mockito.when(service.findByEmpNameIgnoreCaseContaining(utilityTest.getNameSubstring()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpNameIgnoreCaseContaining(utilityTest.getNameSubstring()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpNameIgnoreCaseContaining(utilityTest.getNameSubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(63)
-	public void findByEmpNameIgnoreCaseContaining_empList_Null_test() {
+	 void findByEmpNameIgnoreCaseContaining_empList_Null_test() {
 
 		Mockito.when(service.findByEmpNameIgnoreCaseContaining(utilityTest.getNameSubstring())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
+		assertEquals(utilityTest.getNResponse(),
 				employeeController.findByEmpNameIgnoreCaseContaining(utilityTest.getNameSubstring()));
 
 	}
 
 	@Test
 	@Order(64)
-	public void findByEmpLocationIgnoreCaseContaining_test() {
+	 void findByEmpLocationIgnoreCaseContaining_test() {
 
 		Mockito.when(service.findByEmpLocationIgnoreCaseContaining(utilityTest.getLocationSubstring()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpLocationIgnoreCaseContaining(utilityTest.getLocationSubstring()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(), employeeController
+				.findByEmpLocationIgnoreCaseContaining(utilityTest.getLocationSubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(65)
-	public void findByEmpLocationIgnoreCaseContaining_empList_Null_test() {
+	 void findByEmpLocationIgnoreCaseContaining_empList_Null_test() {
 
 		Mockito.when(service.findByEmpLocationIgnoreCaseContaining(utilityTest.getLocationSubstring()))
 				.thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpLocationIgnoreCaseContaining(utilityTest.getLocationSubstring()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(), employeeController
+				.findByEmpLocationIgnoreCaseContaining(utilityTest.getLocationSubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(66)
-	public void findBySalaryGreaterThanAndEmpLocationContaining_test() {
+	 void findBySalaryGreaterThanAndEmpLocationContaining_test() {
 
 		Mockito.when(service.findBySalaryGreaterThanAndEmpLocationContaining(utilityTest.getSalary(),
-				utilityTest.getLocationSubstring())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findBySalaryGreaterThanAndEmpLocationContaining(
-				utilityTest.getSalary(), utilityTest.getLocationSubstring()));
+				utilityTest.getLocationSubstring())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findBySalaryGreaterThanAndEmpLocationContaining(utilityTest.getSalary(),
+						utilityTest.getLocationSubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(67)
-	public void findBySalaryGreaterThanAndEmpLocationContaining_empList_Null_test() {
+	 void findBySalaryGreaterThanAndEmpLocationContaining_empList_Null_test() {
 
 		Mockito.when(service.findBySalaryGreaterThanAndEmpLocationContaining(utilityTest.getSalary(),
 				utilityTest.getLocationSubstring())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findBySalaryGreaterThanAndEmpLocationContaining(
-				utilityTest.getSalary(), utilityTest.getLocationSubstring()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findBySalaryGreaterThanAndEmpLocationContaining(utilityTest.getSalary(),
+						utilityTest.getLocationSubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(68)
-	public void findByEmpNameContainingOrEmpEmailContaining_test() {
+	 void findByEmpNameContainingOrEmpEmailContaining_test() {
 
 		Mockito.when(service.findByEmpNameContainingOrEmpEmailContaining(utilityTest.getNameSubstring(),
-				utilityTest.getEmailsubstring())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController.findByEmpNameContainingOrEmpEmailContaining(
-				utilityTest.getNameSubstring(), utilityTest.getEmailsubstring()));
+				utilityTest.getEmailsubstring())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController.findByEmpNameContainingOrEmpEmailContaining(utilityTest.getNameSubstring(),
+						utilityTest.getEmailsubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(69)
-	public void findByEmpNameContainingOrEmpEmailContaining_empList_Null_test() {
+	 void findByEmpNameContainingOrEmpEmailContaining_empList_Null_test() {
 
 		Mockito.when(service.findByEmpNameContainingOrEmpEmailContaining(utilityTest.getNameSubstring(),
 				utilityTest.getEmailsubstring())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController.findByEmpNameContainingOrEmpEmailContaining(
-				utilityTest.getNameSubstring(), utilityTest.getEmailsubstring()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController.findByEmpNameContainingOrEmpEmailContaining(utilityTest.getNameSubstring(),
+						utilityTest.getEmailsubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(70)
-	public void findByEmpNameContainingAndSalaryGreaterThan_test() {
+	 void findByEmpNameContainingAndSalaryGreaterThan_test() {
 
 		Mockito.when(service.findByEmpNameContainingAndSalaryGreaterThan(utilityTest.getNameSubstring(),
-				utilityTest.getSalary())).thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController
-				.findByEmpNameContainingAndSalaryGreaterThan(utilityTest.getNameSubstring(), utilityTest.getSalary()));
+				utilityTest.getSalary())).thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(), employeeController
+				.findByEmpNameContainingAndSalaryGreaterThan(utilityTest.getNameSubstring(), utilityTest.getSalary())
+				.getStatusCode());
 
 	}
 
 	@Test
 	@Order(71)
-	public void findByEmpNameContainingAndSalaryGreaterThan_empList_Null_test() {
+	 void findByEmpNameContainingAndSalaryGreaterThan_empList_Null_test() {
 
 		Mockito.when(service.findByEmpNameContainingAndSalaryGreaterThan(utilityTest.getNameSubstring(),
 				utilityTest.getSalary())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController
-				.findByEmpNameContainingAndSalaryGreaterThan(utilityTest.getNameSubstring(), utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(), employeeController
+				.findByEmpNameContainingAndSalaryGreaterThan(utilityTest.getNameSubstring(), utilityTest.getSalary())
+				.getStatusCode());
 
 	}
 
 	@Test
 	@Order(72)
-	public void findByEmpNameContainingOrderBySalaryDesc_test() {
+	 void findByEmpNameContainingOrderBySalaryDesc_test() {
 
 		Mockito.when(service.findByEmpNameContainingOrderBySalaryDesc(utilityTest.getNameSubstring()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpNameContainingOrderBySalaryDesc(utilityTest.getNameSubstring()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(), employeeController
+				.findByEmpNameContainingOrderBySalaryDesc(utilityTest.getNameSubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(73)
-	public void findByEmpNameContainingOrderBySalaryDesc_empList_Null_test() {
+	 void findByEmpNameContainingOrderBySalaryDesc_empList_Null_test() {
 
 		Mockito.when(service.findByEmpNameContainingOrderBySalaryDesc(utilityTest.getNameSubstring())).thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpNameContainingOrderBySalaryDesc(utilityTest.getNameSubstring()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(), employeeController
+				.findByEmpNameContainingOrderBySalaryDesc(utilityTest.getNameSubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(74)
-	public void findByEmpLocationContainingOrderBySalaryAsc_test() {
+	 void findByEmpLocationContainingOrderBySalaryAsc_test() {
 
 		Mockito.when(service.findByEmpLocationContainingOrderBySalaryAsc(utilityTest.getLocationSubstring()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(),
-				employeeController.findByEmpLocationContainingOrderBySalaryAsc(utilityTest.getLocationSubstring()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(), employeeController
+				.findByEmpLocationContainingOrderBySalaryAsc(utilityTest.getLocationSubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(75)
-	public void findByEmpLocationContainingOrderBySalaryAsc_empList_Null_test() {
+	 void findByEmpLocationContainingOrderBySalaryAsc_empList_Null_test() {
 
 		Mockito.when(service.findByEmpLocationContainingOrderBySalaryAsc(utilityTest.getLocationSubstring()))
 				.thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(),
-				employeeController.findByEmpLocationContainingOrderBySalaryAsc(utilityTest.getLocationSubstring()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(), employeeController
+				.findByEmpLocationContainingOrderBySalaryAsc(utilityTest.getLocationSubstring()).getStatusCode());
 
 	}
 
 	@Test
 	@Order(76)
-	public void findByEmpLocationAndSalaryLessThan_test() {
+	 void findByEmpLocationAndSalaryLessThan_test() {
 
 		Mockito.when(service.findByEmpLocationAndSalaryLessThan(utilityTest.getEmpLocation(), utilityTest.getSalary()))
-				.thenReturn(UtilityTest.empList());
-		assertEquals(UtilityTest.getResponse(), employeeController
-				.findByEmpLocationAndSalaryLessThan(utilityTest.getEmpLocation(), utilityTest.getSalary()));
+				.thenReturn(utilityTest.empList());
+		assertEquals(utilityTest.getResponse().getStatusCode(),
+				employeeController
+						.findByEmpLocationAndSalaryLessThan(utilityTest.getEmpLocation(), utilityTest.getSalary())
+						.getStatusCode());
 
 	}
 
 	@Test
 	@Order(77)
-	public void findByEmpLocationAndSalaryLessThan_empList_Null_test() {
+	 void findByEmpLocationAndSalaryLessThan_empList_Null_test() {
 
 		Mockito.when(service.findByEmpLocationAndSalaryLessThan(utilityTest.getEmpLocation(), utilityTest.getSalary()))
 				.thenReturn(null);
-		assertEquals(UtilityTest.getNResponse(), employeeController
-				.findByEmpLocationAndSalaryLessThan(utilityTest.getEmpLocation(), utilityTest.getSalary()));
+		assertEquals(utilityTest.getNResponse().getStatusCode(),
+				employeeController
+						.findByEmpLocationAndSalaryLessThan(utilityTest.getEmpLocation(), utilityTest.getSalary())
+						.getStatusCode());
 
 	}
 

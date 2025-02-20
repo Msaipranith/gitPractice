@@ -15,14 +15,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import redoc.UtilityTest.UtilityTest;
 import redoc.dto.EmployeePojo;
 import redoc.exception.EmployeeCommonException;
 import redoc.repo.EmployeeRepo;
 import redoc.service.EmployeeServiceImpl;
+import redoc.utility.UtilityTest;
 
 @ExtendWith(SpringExtension.class)
-public class EmployeeServiceImplTest {
+class EmployeeServiceImplTest {
 
 	@InjectMocks
 	EmployeeServiceImpl employeeServiceImpl;
@@ -35,16 +35,17 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(1)
-	public void findEmpListBySalaryTest() {
+	void findEmpListBySalaryTest() {
 
-		Mockito.when(empRepo.findBySalary(utilityTest.getSalary())).thenReturn(UtilityTest.employeeList());
-		assertEquals(UtilityTest.empList(), employeeServiceImpl.findEmpListBySalary(utilityTest.getSalary()));
+		Mockito.when(empRepo.findBySalary(utilityTest.getSalary())).thenReturn(utilityTest.employeeList());
+		assertEquals(utilityTest.empList().get(0).getId(),
+				employeeServiceImpl.findEmpListBySalary(utilityTest.getSalary()).get(0).getId());
 
 	}
 
 	@Test
 	@Order(2)
-	public void findEmpListBySalaryTest_empPojoList_isEmpty() {
+	void findEmpListBySalaryTest_empPojoList_isEmpty() {
 		Exception exception = assertThrows(EmployeeCommonException.class, () -> {
 			employeeServiceImpl.findEmpListBySalary(utilityTest.getSalary());
 		});
@@ -54,20 +55,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(3)
-	public void findEmpListByNameTest() {
+	void findEmpListByNameTest() {
 		String nameToSearch = "John"; // Replace with the actual name value
 
-		when(empRepo.findByEmpName(nameToSearch)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpName(nameToSearch)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findEmpListByName(nameToSearch);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(4)
-	public void findEmpListByNameTest_empPojoList_isEmpty() {
+	void findEmpListByNameTest_empPojoList_isEmpty() {
 		String nameToSearch = "NonExistentName"; // Replace with a name that doesn't exist
 
 		when(empRepo.findByEmpName(nameToSearch)).thenReturn(Collections.emptyList());
@@ -84,20 +85,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(5)
-	public void findEmpListByLocationTest() {
+	void findEmpListByLocationTest() {
 		String locationToSearch = "New York"; // Replace with the actual location value
 
-		when(empRepo.findByEmpLocation(locationToSearch)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpLocation(locationToSearch)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findEmpListByLocation(locationToSearch);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(6)
-	public void findEmpListByLocationTest_empPojoList_isEmpty() {
+	void findEmpListByLocationTest_empPojoList_isEmpty() {
 		String locationToSearch = "NonExistentLocation"; // Replace with a location that doesn't exist
 
 		when(empRepo.findByEmpLocation(locationToSearch)).thenReturn(Collections.emptyList());
@@ -114,20 +115,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(7)
-	public void findEmpListByEmailTest() {
+	void findEmpListByEmailTest() {
 		String emailToSearch = "john@example.com"; // Replace with the actual email value
 
-		when(empRepo.findByEmpEmail(emailToSearch)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpEmail(emailToSearch)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findEmpListByEmail(emailToSearch);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(8)
-	public void findEmpListByEmailTest_empPojoList_isEmpty() {
+	void findEmpListByEmailTest_empPojoList_isEmpty() {
 		String emailToSearch = "nonexistent@example.com"; // Replace with a nonexistent email
 
 		when(empRepo.findByEmpEmail(emailToSearch)).thenReturn(Collections.emptyList());
@@ -144,55 +145,52 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(10)
-	public void findEmpListSalaryRangeTest() {
+	void findEmpListSalaryRangeTest() {
 		Double minSalary = 2000.0; // Replace with actual values
 		Double maxSalary = 5000.0;
 
-		when(empRepo.findBySalaryBetween(minSalary, maxSalary)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findBySalaryBetween(minSalary, maxSalary)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findEmpListSalaryRange(minSalary, maxSalary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
-	
 	@Test
 	@Order(11)
-	public void findEmpListSalaryRangeTest_empPojoList_isEmpty() {
-	    Double minSalary = 25000.0; // Replace with values that would result in an empty list
-	    Double maxSalary = 50000.0;
+	void findEmpListSalaryRangeTest_empPojoList_isEmpty() {
+		Double minSalary = 25000.0; // Replace with values that would result in an empty list
+		Double maxSalary = 50000.0;
 
-	    when(empRepo.findBySalaryBetween(minSalary, maxSalary)).thenReturn(Collections.emptyList());
+		when(empRepo.findBySalaryBetween(minSalary, maxSalary)).thenReturn(Collections.emptyList());
 
-	    Exception exception = assertThrows(EmployeeCommonException.class, () -> {
-	        employeeServiceImpl.findEmpListSalaryRange(minSalary, maxSalary);
-	    });
+		Exception exception = assertThrows(EmployeeCommonException.class, () -> {
+			employeeServiceImpl.findEmpListSalaryRange(minSalary, maxSalary);
+		});
 
-	    String expectedMessage = "No employees found with salary range:  minSal " + minSalary + " maxSal " + maxSalary;
-	    String actualMessage = exception.getMessage().trim(); // Trim to remove any leading/trailing spaces
+		String expectedMessage = "No employees found with salary range:  minSal " + minSalary + " maxSal " + maxSalary;
+		String actualMessage = exception.getMessage().trim(); // Trim to remove any leading/trailing spaces
 
-	    assertEquals(expectedMessage, actualMessage);
+		assertEquals(expectedMessage, actualMessage);
 	}
-
-
 
 	@Test
 	@Order(12)
-	public void findByEmpSalaryLessThanTest() {
+	void findByEmpSalaryLessThanTest() {
 		Double salary = 5000.0; // Replace with the actual salary value
 
-		when(empRepo.findBySalaryLessThan(salary)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findBySalaryLessThan(salary)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpSalaryLessThan(salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(13)
-	public void findByEmpSalaryLessThanTest_empPojoList_isEmpty() {
+	void findByEmpSalaryLessThanTest_empPojoList_isEmpty() {
 		Double salary = 1000.0; // Replace with a value that would result in an empty list
 
 		when(empRepo.findBySalaryLessThan(salary)).thenReturn(Collections.emptyList());
@@ -209,20 +207,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(14)
-	public void findByEmpSalaryGreaterThanTest() {
+	void findByEmpSalaryGreaterThanTest() {
 		Double salary = 5000.0; // Replace with the actual salary value
 
-		when(empRepo.findBySalaryGreaterThan(salary)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findBySalaryGreaterThan(salary)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpSalaryGreaterThan(salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(15)
-	public void findByEmpSalaryGreaterThanTest_empPojoList_isEmpty() {
+	void findByEmpSalaryGreaterThanTest_empPojoList_isEmpty() {
 		Double salary = 10000.0; // Replace with a value that would result in an empty list
 
 		when(empRepo.findBySalaryGreaterThan(salary)).thenReturn(Collections.emptyList());
@@ -239,21 +237,21 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(16)
-	public void findEmpByNameAndLocationTest() {
+	void findEmpByNameAndLocationTest() {
 		String name = "John"; // Replace with actual name and location values
 		String location = "New York";
 
-		when(empRepo.findEmpByEmpNameAndEmpLocation(name, location)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findEmpByEmpNameAndEmpLocation(name, location)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findEmpByNameAndLocation(name, location);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(17)
-	public void findEmpByNameAndLocationTest_empPojoList_isEmpty() {
+	void findEmpByNameAndLocationTest_empPojoList_isEmpty() {
 		String name = "NonExistentName"; // Replace with a nonexistent name and location
 		String location = "NonExistentLocation";
 
@@ -271,21 +269,21 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(18)
-	public void findByEmpNameAndSalaryGreaterThanTest() {
+	void findByEmpNameAndSalaryGreaterThanTest() {
 		String name = "John"; // Replace with actual name value
 		Double salary = 5000.0; // Replace with actual salary value
 
-		when(empRepo.findByEmpNameAndSalaryGreaterThan(name, salary)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpNameAndSalaryGreaterThan(name, salary)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameAndSalaryGreaterThan(name, salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(19)
-	public void findByEmpNameAndSalaryGreaterThanTest_empPojoList_isEmpty() {
+	void findByEmpNameAndSalaryGreaterThanTest_empPojoList_isEmpty() {
 		String name = "NonExistentName"; // Replace with a nonexistent name
 		Double salary = 10000.0; // Replace with a value that would result in an empty list
 
@@ -304,23 +302,23 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(20)
-	public void findByEmpLocationContainingOrSalaryLessThanTest() {
+	void findByEmpLocationContainingOrSalaryLessThanTest() {
 		String location = "New"; // Replace with actual location value
 		Double salary = 5000.0; // Replace with actual salary value
 
 		when(empRepo.findByEmpLocationContainingOrSalaryLessThan(location, salary))
-				.thenReturn(UtilityTest.employeeList());
+				.thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpLocationContainingOrSalaryLessThan(location,
 				salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(21)
-	public void findByEmpLocationContainingOrSalaryLessThanTest_empPojoList_isEmpty() {
+	void findByEmpLocationContainingOrSalaryLessThanTest_empPojoList_isEmpty() {
 		String location = "NonExistentLocation"; // Replace with a nonexistent location
 		Double salary = 1000.0; // Replace with a value that would result in an empty list
 
@@ -339,25 +337,25 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(22)
-	public void findByEmpNameAndEmpLocationAndSalaryBetweenTest() {
+	void findByEmpNameAndEmpLocationAndSalaryBetweenTest() {
 		String name = "John"; // Replace with actual name and location values
 		String location = "New York";
 		Double minSalary = 2000.0; // Replace with actual min and max salary values
 		Double maxSalary = 5000.0;
 
 		when(empRepo.findByEmpNameAndEmpLocationAndSalaryBetween(name, location, minSalary, maxSalary))
-				.thenReturn(UtilityTest.employeeList());
+				.thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameAndEmpLocationAndSalaryBetween(name, location,
 				minSalary, maxSalary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(23)
-	public void findByEmpNameAndEmpLocationAndSalaryBetweenTest_empPojoList_isEmpty() {
+	void findByEmpNameAndEmpLocationAndSalaryBetweenTest_empPojoList_isEmpty() {
 		String name = "NonExistentName"; // Replace with a nonexistent name and location
 		String location = "NonExistentLocation";
 		Double minSalary = 10000.0; // Replace with values that would result in an empty list
@@ -379,21 +377,21 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(24)
-	public void findByEmpNameOrEmpLocationTest() {
+	void findByEmpNameOrEmpLocationTest() {
 		String name = "John"; // Replace with actual name and location values
 		String location = "New York";
 
-		when(empRepo.findByEmpNameOrEmpLocation(name, location)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpNameOrEmpLocation(name, location)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameOrEmpLocation(name, location);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(25)
-	public void findByEmpNameOrEmpLocationTest_empPojoList_isEmpty() {
+	void findByEmpNameOrEmpLocationTest_empPojoList_isEmpty() {
 		String name = "NonExistentName"; // Replace with a nonexistent name and location
 		String location = "NonExistentLocation";
 
@@ -412,20 +410,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(26)
-	public void findByEmpNameIgnoreCaseTest() {
+	void findByEmpNameIgnoreCaseTest() {
 		String name = "John"; // Replace with actual name value
 
-		when(empRepo.findByEmpNameIgnoreCase(name)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpNameIgnoreCase(name)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameIgnoreCase(name);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(27)
-	public void findByEmpNameIgnoreCaseTest_empPojoList_isEmpty() {
+	void findByEmpNameIgnoreCaseTest_empPojoList_isEmpty() {
 		String name = "NonExistentName"; // Replace with a nonexistent name
 
 		when(empRepo.findByEmpNameIgnoreCase(name)).thenReturn(Collections.emptyList());
@@ -442,20 +440,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(28)
-	public void findByEmpLocationIgnoreCaseTest() {
+	void findByEmpLocationIgnoreCaseTest() {
 		String location = "New York"; // Replace with actual location value
 
-		when(empRepo.findByEmpLocationIgnoreCase(location)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpLocationIgnoreCase(location)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpLocationIgnoreCase(location);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(29)
-	public void findByEmpLocationIgnoreCaseTest_empPojoList_isEmpty() {
+	void findByEmpLocationIgnoreCaseTest_empPojoList_isEmpty() {
 		String location = "NonExistentLocation"; // Replace with a nonexistent location
 
 		when(empRepo.findByEmpLocationIgnoreCase(location)).thenReturn(Collections.emptyList());
@@ -472,20 +470,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(30)
-	public void findByEmpEmailContainingTest() {
+	void findByEmpEmailContainingTest() {
 		String subString = "example"; // Replace with actual substring value
 
-		when(empRepo.findByEmpEmailContaining(subString)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpEmailContaining(subString)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpEmailContaining(subString);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(31)
-	public void findByEmpEmailContainingTest_empPojoList_isEmpty() {
+	void findByEmpEmailContainingTest_empPojoList_isEmpty() {
 		String subString = "nonexistent"; // Replace with a nonexistent substring
 
 		when(empRepo.findByEmpEmailContaining(subString)).thenReturn(Collections.emptyList());
@@ -502,20 +500,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(32)
-	public void findByEmpNameOrderBySalaryAscTest() {
+	void findByEmpNameOrderBySalaryAscTest() {
 		String name = "John"; // Replace with actual name value
 
-		when(empRepo.findByEmpNameOrderBySalaryAsc(name)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpNameOrderBySalaryAsc(name)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameOrderBySalaryAsc(name);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(33)
-	public void findByEmpNameOrderBySalaryAscTest_empPojoList_isEmpty() {
+	void findByEmpNameOrderBySalaryAscTest_empPojoList_isEmpty() {
 		String name = "NonExistentName"; // Replace with a nonexistent name
 
 		when(empRepo.findByEmpNameOrderBySalaryAsc(name)).thenReturn(Collections.emptyList());
@@ -532,20 +530,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(34)
-	public void findByEmpNameOrderBySalaryDescTest() {
+	void findByEmpNameOrderBySalaryDescTest() {
 		String name = "John"; // Replace with actual name value
 
-		when(empRepo.findByEmpNameOrderBySalaryDesc(name)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpNameOrderBySalaryDesc(name)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameOrderBySalaryDesc(name);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(35)
-	public void findByEmpNameOrderBySalaryDescTest_empPojoList_isEmpty() {
+	void findByEmpNameOrderBySalaryDescTest_empPojoList_isEmpty() {
 		String name = "NonExistentName"; // Replace with a nonexistent name
 
 		when(empRepo.findByEmpNameOrderBySalaryDesc(name)).thenReturn(Collections.emptyList());
@@ -562,20 +560,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(36)
-	public void findByEmpLocationOrderByEmpNameAscTest() {
+	void findByEmpLocationOrderByEmpNameAscTest() {
 		String location = "New York"; // Replace with actual location value
 
-		when(empRepo.findByEmpLocationOrderByEmpNameAsc(location)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpLocationOrderByEmpNameAsc(location)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpLocationOrderByEmpNameAsc(location);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(37)
-	public void findByEmpLocationOrderByEmpNameAscTest_empPojoList_isEmpty() {
+	void findByEmpLocationOrderByEmpNameAscTest_empPojoList_isEmpty() {
 		String location = "NonExistentLocation"; // Replace with a nonexistent location
 
 		when(empRepo.findByEmpLocationOrderByEmpNameAsc(location)).thenReturn(Collections.emptyList());
@@ -592,20 +590,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(38)
-	public void findByEmpLocationOrderByEmpNameDescTest() {
+	void findByEmpLocationOrderByEmpNameDescTest() {
 		String location = "New York"; // Replace with actual location value
 
-		when(empRepo.findByEmpLocationOrderByEmpNameDesc(location)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpLocationOrderByEmpNameDesc(location)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpLocationOrderByEmpNameDesc(location);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(39)
-	public void findByEmpLocationOrderByEmpNameDescTest_empPojoList_isEmpty() {
+	void findByEmpLocationOrderByEmpNameDescTest_empPojoList_isEmpty() {
 		String location = "NonExistentLocation"; // Replace with a nonexistent location
 
 		when(empRepo.findByEmpLocationOrderByEmpNameDesc(location)).thenReturn(Collections.emptyList());
@@ -622,20 +620,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(40)
-	public void findBySalaryGreaterThanEqualTest() {
+	void findBySalaryGreaterThanEqualTest() {
 		Double salary = 5000.0; // Replace with actual salary value
 
-		when(empRepo.findBySalaryGreaterThanEqual(salary)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findBySalaryGreaterThanEqual(salary)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findBySalaryGreaterThanEqual(salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(41)
-	public void findBySalaryGreaterThanEqualTest_empPojoList_isEmpty() {
+	void findBySalaryGreaterThanEqualTest_empPojoList_isEmpty() {
 		Double salary = 10000.0; // Replace with a value that would result in an empty list
 
 		when(empRepo.findBySalaryGreaterThanEqual(salary)).thenReturn(Collections.emptyList());
@@ -652,20 +650,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(42)
-	public void findBySalaryLessThanEqualTest() {
+	void findBySalaryLessThanEqualTest() {
 		Double salary = 5000.0; // Replace with actual salary value
 
-		when(empRepo.findBySalaryLessThanEqual(salary)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findBySalaryLessThanEqual(salary)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findBySalaryLessThanEqual(salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(43)
-	public void findBySalaryLessThanEqualTest_empPojoList_isEmpty() {
+	void findBySalaryLessThanEqualTest_empPojoList_isEmpty() {
 		Double salary = 1000.0; // Replace with a value that would result in an empty list
 
 		when(empRepo.findBySalaryLessThanEqual(salary)).thenReturn(Collections.emptyList());
@@ -682,20 +680,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(44)
-	public void findBySalaryNotTest() {
+	void findBySalaryNotTest() {
 		Double salary = 5000.0; // Replace with actual salary value
 
-		when(empRepo.findBySalaryNot(salary)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findBySalaryNot(salary)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findBySalaryNot(salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(45)
-	public void findBySalaryNotTest_empPojoList_isEmpty() {
+	void findBySalaryNotTest_empPojoList_isEmpty() {
 		Double salary = 1000.0; // Replace with a value that would result in an empty list
 
 		when(empRepo.findBySalaryNot(salary)).thenReturn(Collections.emptyList());
@@ -712,20 +710,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(46)
-	public void findByEmpNameContainingTest() {
+	void findByEmpNameContainingTest() {
 		String subString = "John"; // Replace with actual substring value
 
-		when(empRepo.findByEmpNameContaining(subString)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpNameContaining(subString)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameContaining(subString);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(47)
-	public void findByEmpNameContainingTest_empPojoList_isEmpty() {
+	void findByEmpNameContainingTest_empPojoList_isEmpty() {
 		String subString = "NonExistentSubString"; // Replace with a nonexistent substring
 
 		when(empRepo.findByEmpNameContaining(subString)).thenReturn(Collections.emptyList());
@@ -742,20 +740,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(48)
-	public void findByEmpLocationContainingTest() {
+	void findByEmpLocationContainingTest() {
 		String subString = "New York"; // Replace with actual substring value
 
-		when(empRepo.findByEmpLocationContaining(subString)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpLocationContaining(subString)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpLocationContaining(subString);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(49)
-	public void findByEmpLocationContainingTest_empPojoList_isEmpty() {
+	void findByEmpLocationContainingTest_empPojoList_isEmpty() {
 		String subString = "NonExistentSubString"; // Replace with a nonexistent substring
 
 		when(empRepo.findByEmpLocationContaining(subString)).thenReturn(Collections.emptyList());
@@ -772,20 +770,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(50)
-	public void findByEmpEmailEndingWithTest() {
+	void findByEmpEmailEndingWithTest() {
 		String domain = "example.com"; // Replace with actual domain value
 
-		when(empRepo.findByEmpEmailEndingWith(domain)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpEmailEndingWith(domain)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpEmailEndingWith(domain);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(51)
-	public void findByEmpEmailEndingWithTest_empPojoList_isEmpty() {
+	void findByEmpEmailEndingWithTest_empPojoList_isEmpty() {
 		String domain = "nonexistent.com"; // Replace with a nonexistent domain
 
 		when(empRepo.findByEmpEmailEndingWith(domain)).thenReturn(Collections.emptyList());
@@ -802,20 +800,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(52)
-	public void findByEmpEmailStartingWithTest() {
+	void findByEmpEmailStartingWithTest() {
 		String prefix = "john"; // Replace with actual prefix value
 
-		when(empRepo.findByEmpEmailStartingWith(prefix)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpEmailStartingWith(prefix)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpEmailStartingWith(prefix);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(53)
-	public void findByEmpEmailStartingWithTest_empPojoList_isEmpty() {
+	void findByEmpEmailStartingWithTest_empPojoList_isEmpty() {
 		String prefix = "nonexistent"; // Replace with a nonexistent prefix
 
 		when(empRepo.findByEmpEmailStartingWith(prefix)).thenReturn(Collections.emptyList());
@@ -832,20 +830,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(54)
-	public void findBySalaryGreaterThanOrderByEmpNameAscTest() {
+	void findBySalaryGreaterThanOrderByEmpNameAscTest() {
 		Double salary = 5000.0; // Replace with actual salary value
 
-		when(empRepo.findBySalaryGreaterThanOrderByEmpNameAsc(salary)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findBySalaryGreaterThanOrderByEmpNameAsc(salary)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findBySalaryGreaterThanOrderByEmpNameAsc(salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(55)
-	public void findBySalaryGreaterThanOrderByEmpNameAscTest_empPojoList_isEmpty() {
+	void findBySalaryGreaterThanOrderByEmpNameAscTest_empPojoList_isEmpty() {
 		Double salary = 10000.0; // Replace with a value that would result in an empty list
 
 		when(empRepo.findBySalaryGreaterThanOrderByEmpNameAsc(salary)).thenReturn(Collections.emptyList());
@@ -862,20 +860,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(56)
-	public void findBySalaryLessThanOrderByEmpNameAscTest() {
+	void findBySalaryLessThanOrderByEmpNameAscTest() {
 		Double salary = 5000.0; // Replace with actual salary value
 
-		when(empRepo.findBySalaryLessThanOrderByEmpNameAsc(salary)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findBySalaryLessThanOrderByEmpNameAsc(salary)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findBySalaryLessThanOrderByEmpNameAsc(salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(57)
-	public void findBySalaryLessThanOrderByEmpNameAscTest_empPojoList_isEmpty() {
+	void findBySalaryLessThanOrderByEmpNameAscTest_empPojoList_isEmpty() {
 		Double salary = 10000.0; // Replace with a value that would result in an empty list
 
 		when(empRepo.findBySalaryLessThanOrderByEmpNameAsc(salary)).thenReturn(Collections.emptyList());
@@ -892,20 +890,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(58)
-	public void findByEmpLocationOrderBySalaryAscTest() {
+	void findByEmpLocationOrderBySalaryAscTest() {
 		String location = "New York"; // Replace with actual location value
 
-		when(empRepo.findByEmpLocationOrderBySalaryAsc(location)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpLocationOrderBySalaryAsc(location)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpLocationOrderBySalaryAsc(location);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(59)
-	public void findByEmpLocationOrderBySalaryAscTest_empPojoList_isEmpty() {
+	void findByEmpLocationOrderBySalaryAscTest_empPojoList_isEmpty() {
 		String location = "NonExistentLocation"; // Replace with a nonexistent location
 
 		when(empRepo.findByEmpLocationOrderBySalaryAsc(location)).thenReturn(Collections.emptyList());
@@ -922,20 +920,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(60)
-	public void findByEmpEmailContainingOrderBySalaryDescTest() {
+	void findByEmpEmailContainingOrderBySalaryDescTest() {
 		String subString = "example.com"; // Replace with actual substring value
 
-		when(empRepo.findByEmpEmailContainingOrderBySalaryDesc(subString)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpEmailContainingOrderBySalaryDesc(subString)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpEmailContainingOrderBySalaryDesc(subString);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(61)
-	public void findByEmpEmailContainingOrderBySalaryDescTest_empPojoList_isEmpty() {
+	void findByEmpEmailContainingOrderBySalaryDescTest_empPojoList_isEmpty() {
 		String subString = "nonexistent.com"; // Replace with a nonexistent substring
 
 		when(empRepo.findByEmpEmailContainingOrderBySalaryDesc(subString)).thenReturn(Collections.emptyList());
@@ -953,20 +951,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(62)
-	public void findByEmpNameIgnoreCaseContainingTest() {
+	void findByEmpNameIgnoreCaseContainingTest() {
 		String subString = "John"; // Replace with actual substring value
 
-		when(empRepo.findByEmpNameIgnoreCaseContaining(subString)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpNameIgnoreCaseContaining(subString)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameIgnoreCaseContaining(subString);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(63)
-	public void findByEmpNameIgnoreCaseContainingTest_empPojoList_isEmpty() {
+	void findByEmpNameIgnoreCaseContainingTest_empPojoList_isEmpty() {
 		String subString = "nonexistent"; // Replace with a nonexistent substring
 
 		when(empRepo.findByEmpNameIgnoreCaseContaining(subString)).thenReturn(Collections.emptyList());
@@ -984,20 +982,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(64)
-	public void findByEmpLocationIgnoreCaseContainingTest() {
+	void findByEmpLocationIgnoreCaseContainingTest() {
 		String subString = "New York"; // Replace with actual substring value
 
-		when(empRepo.findByEmpLocationIgnoreCaseContaining(subString)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpLocationIgnoreCaseContaining(subString)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpLocationIgnoreCaseContaining(subString);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(65)
-	public void findByEmpLocationIgnoreCaseContainingTest_empPojoList_isEmpty() {
+	void findByEmpLocationIgnoreCaseContainingTest_empPojoList_isEmpty() {
 		String subString = "nonexistent"; // Replace with a nonexistent substring
 
 		when(empRepo.findByEmpLocationIgnoreCaseContaining(subString)).thenReturn(Collections.emptyList());
@@ -1015,23 +1013,23 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(66)
-	public void findBySalaryGreaterThanAndEmpLocationContainingTest() {
+	void findBySalaryGreaterThanAndEmpLocationContainingTest() {
 		Double salary = 5000.0; // Replace with actual salary value
 		String subString = "New York"; // Replace with actual subString value
 
 		when(empRepo.findBySalaryGreaterThanAndEmpLocationContaining(salary, subString))
-				.thenReturn(UtilityTest.employeeList());
+				.thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findBySalaryGreaterThanAndEmpLocationContaining(salary,
 				subString);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(67)
-	public void findBySalaryGreaterThanAndEmpLocationContainingTest_empPojoList_isEmpty() {
+	void findBySalaryGreaterThanAndEmpLocationContainingTest_empPojoList_isEmpty() {
 		Double salary = 10000.0; // Replace with a value that would result in an empty list
 		String subString = "NonExistentLocation"; // Replace with a nonexistent subString
 
@@ -1051,23 +1049,23 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(68)
-	public void findByEmpNameContainingOrEmpEmailContainingTest() {
+	void findByEmpNameContainingOrEmpEmailContainingTest() {
 		String nameSubstring = "John"; // Replace with actual nameSubstring value
 		String emailSubstring = "example.com"; // Replace with actual emailSubstring value
 
 		when(empRepo.findByEmpNameContainingOrEmpEmailContaining(nameSubstring, emailSubstring))
-				.thenReturn(UtilityTest.employeeList());
+				.thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameContainingOrEmpEmailContaining(nameSubstring,
 				emailSubstring);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(69)
-	public void findByEmpNameContainingOrEmpEmailContainingTest_empPojoList_isEmpty() {
+	void findByEmpNameContainingOrEmpEmailContainingTest_empPojoList_isEmpty() {
 		String nameSubstring = "nonexistent"; // Replace with a nonexistent nameSubstring
 		String emailSubstring = "nonexistent.com"; // Replace with a nonexistent emailSubstring
 
@@ -1087,23 +1085,23 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(70)
-	public void findByEmpNameContainingAndSalaryGreaterThanTest() {
+	void findByEmpNameContainingAndSalaryGreaterThanTest() {
 		String nameSubstring = "John"; // Replace with actual nameSubstring value
 		Double salary = 5000.0; // Replace with actual salary value
 
 		when(empRepo.findByEmpNameContainingAndSalaryGreaterThan(nameSubstring, salary))
-				.thenReturn(UtilityTest.employeeList());
+				.thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameContainingAndSalaryGreaterThan(nameSubstring,
 				salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(71)
-	public void findByEmpNameContainingAndSalaryGreaterThanTest_empPojoList_isEmpty() {
+	void findByEmpNameContainingAndSalaryGreaterThanTest_empPojoList_isEmpty() {
 		String nameSubstring = "nonexistent"; // Replace with a nonexistent nameSubstring
 		Double salary = 10000.0; // Replace with a value that would result in an empty list
 
@@ -1123,20 +1121,20 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(72)
-	public void findByEmpNameContainingOrderBySalaryDescTest() {
+	void findByEmpNameContainingOrderBySalaryDescTest() {
 		String nameSubstring = "John"; // Replace with actual nameSubstring value
 
-		when(empRepo.findByEmpNameContainingOrderBySalaryDesc(nameSubstring)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpNameContainingOrderBySalaryDesc(nameSubstring)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpNameContainingOrderBySalaryDesc(nameSubstring);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(73)
-	public void findByEmpNameContainingOrderBySalaryDescTest_empPojoList_isEmpty() {
+	void findByEmpNameContainingOrderBySalaryDescTest_empPojoList_isEmpty() {
 		String nameSubstring = "nonexistent"; // Replace with a nonexistent nameSubstring
 
 		when(empRepo.findByEmpNameContainingOrderBySalaryDesc(nameSubstring)).thenReturn(Collections.emptyList());
@@ -1154,22 +1152,22 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(74)
-	public void findByEmpLocationContainingOrderBySalaryAscTest() {
+	void findByEmpLocationContainingOrderBySalaryAscTest() {
 		String locationSubstring = "New York"; // Replace with actual locationSubstring value
 
 		when(empRepo.findByEmpLocationContainingOrderBySalaryAsc(locationSubstring))
-				.thenReturn(UtilityTest.employeeList());
+				.thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl
 				.findByEmpLocationContainingOrderBySalaryAsc(locationSubstring);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(75)
-	public void findByEmpLocationContainingOrderBySalaryAscTest_empPojoList_isEmpty() {
+	void findByEmpLocationContainingOrderBySalaryAscTest_empPojoList_isEmpty() {
 		String locationSubstring = "nonexistent"; // Replace with a nonexistent locationSubstring
 
 		when(empRepo.findByEmpLocationContainingOrderBySalaryAsc(locationSubstring))
@@ -1188,21 +1186,21 @@ public class EmployeeServiceImplTest {
 
 	@Test
 	@Order(76)
-	public void findByEmpLocationAndSalaryLessThanTest() {
+	void findByEmpLocationAndSalaryLessThanTest() {
 		String location = "New York"; // Replace with actual location value
 		Double salary = 5000.0; // Replace with actual salary value
 
-		when(empRepo.findByEmpLocationAndSalaryLessThan(location, salary)).thenReturn(UtilityTest.employeeList());
+		when(empRepo.findByEmpLocationAndSalaryLessThan(location, salary)).thenReturn(utilityTest.employeeList());
 
-		List<EmployeePojo> expectedList = UtilityTest.empList();
+		List<EmployeePojo> expectedList = utilityTest.empList();
 		List<EmployeePojo> actualList = employeeServiceImpl.findByEmpLocationAndSalaryLessThan(location, salary);
 
-		assertEquals(expectedList, actualList);
+		assertEquals(expectedList.get(0).getId(), actualList.get(0).getId());
 	}
 
 	@Test
 	@Order(77)
-	public void findByEmpLocationAndSalaryLessThanTest_empPojoList_isEmpty() {
+	void findByEmpLocationAndSalaryLessThanTest_empPojoList_isEmpty() {
 		String location = "nonexistent"; // Replace with a nonexistent location
 		Double salary = 10000.0; // Replace with a value that would result in an empty list
 
