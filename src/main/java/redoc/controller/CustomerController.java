@@ -19,8 +19,9 @@ public class CustomerController {
 	@PostMapping("/saveCustomerDetails")
 	public String saveCustomerDetails(@RequestBody Customer customer) {
 		customerService.saveCustomerDetails(customer);
-		return "saved";
+		return "saved work";
 	}
-	//adding comment in CustomerController from b1
-
+	
+	
+	 
 }
