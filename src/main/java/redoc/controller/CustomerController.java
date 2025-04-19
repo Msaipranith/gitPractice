@@ -21,6 +21,6 @@ public class CustomerController {
 		customerService.saveCustomerDetails(customer);
 		return "saved";
 	}
-	//adding comment in CustomerController from b1
+	
 
 }
