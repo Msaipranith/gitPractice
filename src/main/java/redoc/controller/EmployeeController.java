@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.transaction.Transactional;
 import redoc.dto.EmployeePojo;
 import redoc.entity.Employee;
 import redoc.exception.EmployeeCommonException;
@@ -24,9 +23,6 @@ import redoc.service.EmployeeService;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-	// made changes in employeeController class from branch b1 in local repo
-
-	// logger
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
 	private final EmployeeService empService;
