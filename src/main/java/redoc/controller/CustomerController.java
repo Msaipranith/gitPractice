@@ -19,7 +19,7 @@ public class CustomerController {
 	@PostMapping("/saveCustomerDetails")
 	public String saveCustomerDetails(@RequestBody Customer customer) {
 		customerService.saveCustomerDetails(customer);
-		//added comment
+	
 		return "saved";
 	}
 	
