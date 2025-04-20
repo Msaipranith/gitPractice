@@ -12,20 +12,29 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import redoc.dto.EmployeePojo;
 import redoc.entity.Employee;
 import redoc.exception.EmployeeCommonException;
 import redoc.repo.EmployeeRepo;
 import redoc.utility.Utility;
 
+
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
-	@Autowired
-	EmployeeRepo empRepo;
+	private final EmployeeRepo empRepo;
+	
 
+	public EmployeeServiceImpl(EmployeeRepo empRepo) {
+		super();
+		this.empRepo = empRepo;
+	}
+
+	@Transactional
 	@Override
 	public List<EmployeePojo> findEmpListBySalary(Double salary) {
 		LOGGER.info("Calling findEmpListBySalary with salary: {}", salary);

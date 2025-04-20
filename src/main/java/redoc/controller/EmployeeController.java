@@ -22,8 +22,6 @@ import redoc.service.EmployeeService;
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
-
-	
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
 	private final EmployeeService empService;
@@ -439,9 +437,19 @@ public class EmployeeController {
 
 	@GetMapping("/findAllEmp")
 	public List<Employee> findAllEmp() {
+		
 		return empService.findAllEmp();
 	}
 
+	@GetMapping("/findAllEmpPC")
+	public void findAllEmpPc() {
+		 long startTime = System.currentTimeMillis();
+		 empService.findAllEmp();
+		 long endTime = System.currentTimeMillis();
+	        LOGGER.info("Query Execution Time: {} ms", (endTime - startTime));
+	}
+
+	
 	@GetMapping("/paginationEx")
 	public List<Employee> paginationEx() {
 		return empService.paginationEx();

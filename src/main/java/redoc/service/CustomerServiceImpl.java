@@ -1,5 +1,7 @@
 package redoc.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,13 @@ public class CustomerServiceImpl implements CustomerService {
 	public void saveCustomerDetails(Customer customer) {
 		// TODO Auto-generated method stub
 		customerRepo.save(customer);
+	}
+
+
+	@Override
+	public List<Customer> getCustomerList() {
+		// TODO Auto-generated method stub
+		return customerRepo.findAll();
 	}
 
 }
