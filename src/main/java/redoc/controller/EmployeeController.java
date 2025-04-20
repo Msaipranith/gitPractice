@@ -22,7 +22,6 @@ import redoc.service.EmployeeService;
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
 	private final EmployeeService empService;
