@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +22,6 @@ import redoc.service.EmployeeService;
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
-
-	// made changes in employeeController class from branch b1 in local repo
-
-	// logger
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
 	private final EmployeeService empService;
@@ -442,9 +437,19 @@ public class EmployeeController {
 
 	@GetMapping("/findAllEmp")
 	public List<Employee> findAllEmp() {
+		
 		return empService.findAllEmp();
 	}
 
+	@GetMapping("/findAllEmpPC")
+	public void findAllEmpPc() {
+		 long startTime = System.currentTimeMillis();
+		 empService.findAllEmp();
+		 long endTime = System.currentTimeMillis();
+	        LOGGER.info("Query Execution Time: {} ms", (endTime - startTime));
+	}
+
+	
 	@GetMapping("/paginationEx")
 	public List<Employee> paginationEx() {
 		return empService.paginationEx();
