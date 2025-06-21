@@ -35,7 +35,9 @@ public class CustomerController {
 
 	@GetMapping("/welcome-page")
 	public String welcomePage(){
-		return "Welcome to git again";
+
+		return "Welcome to git";
+
 	}
 	
 }
