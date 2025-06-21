@@ -34,4 +34,9 @@ public class CustomerController {
 	}
 	
 // from branch b1
+	@GetMapping("/welcome-page")
+	public String welcomePage(){
+		return "Welcome to git";
+	}
+	
 }
