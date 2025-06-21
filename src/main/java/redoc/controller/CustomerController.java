@@ -22,7 +22,7 @@ public class CustomerController {
 
 	@PostMapping("/saveCustomerDetails")
 	public String saveCustomerDetails(@RequestBody Customer customer) {
-		// saving customer details
+
 		customerService.saveCustomerDetails(customer);
 		return "saved";
 	}
@@ -33,7 +33,7 @@ public class CustomerController {
 		return customerService.getCustomerList();
 	}
 	
-// from branch b1
+
 	@GetMapping("/welcome-page")
 	public String welcomePage(){
 		System.out.print("commit change");
