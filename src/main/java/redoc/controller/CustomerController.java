@@ -35,8 +35,6 @@ public class CustomerController {
 
 	@GetMapping("/welcome-page")
 	public String welcomePage(){
-		System.out.print("commit change");
-		System.out.print("commit change123");
 		return "Welcome to git again";
 	}
 	
