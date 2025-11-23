@@ -32,6 +32,12 @@ public class CustomerController {
 		return customerService.getCustomerList();
 	}
 	
-	
 
+	@GetMapping("/welcome-page")
+	public String welcomePage(){
+
+		return "Welcome to git";
+
+	}
+	
 }
