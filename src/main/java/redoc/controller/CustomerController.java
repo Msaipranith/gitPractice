@@ -47,4 +47,6 @@ public class CustomerController {
 		customerService.deleteCustomerById(id);
 		return  "deleted ";
 	}
+
+	// this is customer controller
 }
