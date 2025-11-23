@@ -10,5 +10,4 @@ public interface CustomerService {
 
 	List<Customer> getCustomerList();
 
-	void deleteById(int id);
 }

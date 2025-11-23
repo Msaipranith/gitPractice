@@ -37,10 +37,7 @@ public class CustomerController {
 
 	}
 
-@DeleteMapping("/customer/delete/{id}")
-	public String deleteCustomer(@PathVariable int id){
-		customerService.deleteById(id);
-		return "deleted sucessfully with id " + id;
-}
+
+
 	
 }
