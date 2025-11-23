@@ -33,6 +33,9 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepo.findById(id).get();
 	}
 
-
+	@Override
+	public void deleteCustomerById(int id) {
+		customerRepo.deleteById(id);
+	}
 
 }
