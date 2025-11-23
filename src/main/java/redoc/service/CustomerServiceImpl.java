@@ -28,9 +28,6 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepo.findAll();
 	}
 
-	@Override
-	public Customer getCustomerById(int id) {
-		return customerRepo.findById(id);
-	}
+
 
 }
