@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 public class Employee {  
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private String empName;
@@ -58,7 +58,6 @@ public class Employee {
 		this.salary = salary;
 	}
 	public Employee() {
-		super();
 	}
 	
 	
