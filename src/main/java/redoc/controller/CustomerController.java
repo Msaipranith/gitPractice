@@ -48,5 +48,5 @@ public class CustomerController {
 		return  "deleted ";
 	}
 
-	
+	// welcome to customer controller
 }
