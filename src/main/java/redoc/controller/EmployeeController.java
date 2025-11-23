@@ -485,7 +485,4 @@ public class EmployeeController {
 		return empService.getEmpById(id);
 	}
 
-
-// merge conflict from main branch for testing purpose
-	
 }
