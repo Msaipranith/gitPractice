@@ -4,9 +4,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Employee {  
 
@@ -14,55 +22,13 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	private String empName;
+	private  String empName;
+	private  String empLocation;
+	private  String empEmail;
+	private  Double salary;
+	private   LocalDate createdAt;
+	private  LocalDate updatedAt;
 
-	private String empLocation;
-	private String empEmail;
-	private Double salary;
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getEmpName() {
-		return empName;
-	}
-	public void setEmpName(String empName) {
-		this.empName = empName;
-	}
-	public String getEmpLocation() {
-		return empLocation;
-	}
-	public void setEmpLocation(String empLocation) {
-		this.empLocation = empLocation;
-	}
-	public String getEmpEmail() {
-		return empEmail;
-	}
-	public void setEmpEmail(String empEmail) {
-		this.empEmail = empEmail;
-	}
-	public Double getSalary() {
-		return salary;
-	}
-	public void setSalary(Double salary) {
-		this.salary = salary;
-	}
-	public Employee(long id, String empName, String empLocation, String empEmail, Double salary) {
-		super();
-		this.id = id;
-		this.empName = empName;
-		this.empLocation = empLocation;
-		this.empEmail = empEmail;
-		this.salary = salary;
-	}
-	public Employee() {
-	}
-	
-	
-	
-//	
 //	"empName":"user",
 //	"empLocation":"hyd",
 //	"empEmail":"user-1@gmail.com",
