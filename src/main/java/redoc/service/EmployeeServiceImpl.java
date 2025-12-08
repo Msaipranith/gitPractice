@@ -1,5 +1,6 @@
 package redoc.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		LOGGER.info("Calling saveEmpDetails with empPojo: {}", empPojo);
 		Employee emp = new Employee();
 		BeanUtils.copyProperties(empPojo, emp);
+		emp.setCreatedAt(LocalDate.now());
+		emp.setUpdatedAt(LocalDate.now());
 		empRepo.save(emp);
 	}
 
@@ -104,7 +107,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		for (EmployeePojo employeePojo : empPojo) {
 			Employee employee = new Employee();
-			BeanUtils.copyProperties(employeePojo, employee);
+			employee.setEmpName(employeePojo.getEmpName());
+			employee.setEmpLocation(employeePojo.getEmpLocation());
+			employee.setEmpEmail(employeePojo.getEmpEmail());
+			employee.setSalary(employeePojo.getSalary());
+			employee.setCreatedAt(LocalDate.now());
+			employee.setUpdatedAt(LocalDate.now());
 			empList.add(employee);
 		}
 
