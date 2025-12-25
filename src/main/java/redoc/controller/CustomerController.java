@@ -24,4 +24,10 @@ public class CustomerController {
 		return "saved";
 	}
 
+	@GetMapping("/getCustomerDetails")
+	public List<Customer> getMethodName() {
+		return customerService.getCustomerList();
+	}
+
+
 }
