@@ -18,19 +18,19 @@ public class GlobalExceptionHandler {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-	@ExceptionHandler(EmployeeCommonException.class)
-	public ResponseEntity<ExceptionResponse> handleEmployeeCommonException(EmployeeCommonException ex,
-			HttpServletRequest request) {
-
-		ExceptionResponse er = new ExceptionResponse();
-		er.setTimestamp(LocalDateTime.now());
-		er.setStatus(HttpStatusCode.valueOf(404));
-		//er.setError(HttpStatus.NOT_FOUND.getReasonPhrase());
-		er.setMessage(ex.getMessage());
-		er.setPath(request.getRequestURI());
-
-		return new ResponseEntity<>(er, HttpStatus.NOT_FOUND);
-	}
+//	@ExceptionHandler(EmployeeCommonException.class)
+//	public ResponseEntity<ExceptionResponse> handleEmployeeCommonException(EmployeeCommonException ex,
+//			HttpServletRequest request) {
+//
+//		ExceptionResponse er = new ExceptionResponse();
+//		er.setTimestamp(LocalDateTime.now());
+//		er.setStatus(HttpStatusCode.valueOf(404));
+//		//er.setError(HttpStatus.NOT_FOUND.getReasonPhrase());
+//		er.setMessage(ex.getMessage());
+//		er.setPath(request.getRequestURI());
+//
+//		return new ResponseEntity<>(er, HttpStatus.NOT_FOUND);
+//	}
 
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<ExceptionResponse> handleRunTimeException(RuntimeException ex,
@@ -38,12 +38,12 @@ public class GlobalExceptionHandler {
 
 		ExceptionResponse er = new ExceptionResponse();
 		er.setTimestamp(LocalDateTime.now());
-		er.setStatus(HttpStatusCode.valueOf(404));
+		er.setStatus(HttpStatusCode.valueOf(500));
 		//er.setError(HttpStatus.NOT_FOUND.getReasonPhrase());
 		er.setMessage(ex.getMessage());
 		er.setPath(request.getRequestURI());
 		try {
-			return new ResponseEntity<>(er, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(er, HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception e) {
 			LOGGER.warn(e.getMessage());
 		}

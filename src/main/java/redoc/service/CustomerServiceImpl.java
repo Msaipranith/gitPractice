@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import redoc.controller.EmployeeController;
 import redoc.entity.Customer;
+import redoc.exception.EmployeeCommonException;
 import redoc.repo.CustomerRepo;
 
 @Service
@@ -40,7 +41,15 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void deleteCustomerById(int id) {
-			throw new RuntimeException(" id not found " + id);
+		//try {
+			throw new EmployeeCommonException(" id not found ");
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			LOGGER.warn(e.getMessage());
+//			//e.printStackTrace();
+//		}
+		//System.out.println("welcome");
+			
 	}
 
 }
