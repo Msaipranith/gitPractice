@@ -6,11 +6,5 @@ import redoc.entity.Customer;
 
 public interface CustomerService {
 
-	void saveCustomerDetails(Customer customer);
 
-	List<Customer> getCustomerList();
-
-	Customer getCustomerById(int id);
-
-	void deleteCustomerById(int id);
 }
