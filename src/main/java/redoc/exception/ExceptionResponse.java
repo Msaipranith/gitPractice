@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.http.HttpStatusCode;
 
 public class ExceptionResponse {
+	
 	private LocalDateTime timestamp;
     private HttpStatusCode status;
    // private String error;
