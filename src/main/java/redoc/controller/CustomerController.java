@@ -24,4 +24,22 @@ public class CustomerController {
 		return "saved";
 	}
 
+
+	@GetMapping("/welcome-page")
+	public String welcomePage(){
+
+		return "Welcome to git";
+
+	}
+
+	@GetMapping("/cusomer/{id}")
+	public Customer fetchCustomerById(@PathVariable int id) {
+		return customerService.getCustomerById(id);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public String deleteCustomerById(@PathVariable int id){
+		customerService.deleteCustomerById(id);
+		return  "deleted ";
+	}
 }
