@@ -482,7 +482,6 @@ public class EmployeeController {
 
 	@GetMapping("/findEmpById")
 	public Employee findEmpById(@RequestParam Long id) {
-		// commit for testing
 		return empService.getEmpById(id);
 	}
 
