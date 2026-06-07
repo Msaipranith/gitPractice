@@ -39,5 +39,10 @@ public class CustomerController {
         customerService.deleteCustomerById(id);
         return "deleted ";
     }
+
+    @GetMapping("/getCustomerDetails")
+    public List<Customer> getMethodName() {
+        return customerService.getCustomerList();
+    }
     
 }
