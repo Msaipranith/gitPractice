@@ -1,0 +1,6 @@
+"FILE PATH","QUERY"
+"C:\Users\saipr\OneDrive\Documents\workspace-spring-tool-suite-4-4.24.0.RELEASE\gitPractice\src\main\java\redoc\repo\EmployeeRepo.java","SELECT e FROM Employee e WHERE e.empLocation = ?1 AND e.salary >= ?2"")
+	List<Employee> customAPI(String location, String salary);"
+"C:\Users\saipr\OneDrive\Documents\workspace-spring-tool-suite-4-4.24.0.RELEASE\gitPractice\custom_queries.sql","SELECT * FROM employees;"
+"C:\Users\saipr\OneDrive\Documents\workspace-spring-tool-suite-4-4.24.0.RELEASE\gitPractice\custom_queries.sql","SELECT first_name, last_name, salary FROM employees;"
+"C:\Users\saipr\OneDrive\Documents\workspace-spring-tool-suite-4-4.24.0.RELEASE\gitPractice\custom_queries.sql","SELECT * FROM employees WHERE department = 'IT';"

@@ -1,31 +1,40 @@
 package redoc.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import redoc.dto.EmployeePojo;
 import redoc.entity.Employee;
 import redoc.exception.EmployeeCommonException;
 import redoc.repo.EmployeeRepo;
 import redoc.utility.Utility;
 
+
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
-	@Autowired
-	EmployeeRepo empRepo;
+	private final EmployeeRepo empRepo;
+	
 
+	public EmployeeServiceImpl(EmployeeRepo empRepo) {
+		super();
+		this.empRepo = empRepo;
+	}
+
+	@Transactional
 	@Override
 	public List<EmployeePojo> findEmpListBySalary(Double salary) {
 		LOGGER.info("Calling findEmpListBySalary with salary: {}", salary);
@@ -42,9 +51,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void saveEmpDetails(EmployeePojo empPojo) {
+
 		LOGGER.info("Calling saveEmpDetails with empPojo: {}", empPojo);
 		Employee emp = new Employee();
 		BeanUtils.copyProperties(empPojo, emp);
+		emp.setCreatedAt(LocalDate.now());
+		emp.setUpdatedAt(LocalDate.now());
 		empRepo.save(emp);
 	}
 
@@ -95,7 +107,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		for (EmployeePojo employeePojo : empPojo) {
 			Employee employee = new Employee();
-			BeanUtils.copyProperties(employeePojo, employee);
+			employee.setEmpName(employeePojo.getEmpName());
+			employee.setEmpLocation(employeePojo.getEmpLocation());
+			employee.setEmpEmail(employeePojo.getEmpEmail());
+			employee.setSalary(employeePojo.getSalary());
+			employee.setCreatedAt(LocalDate.now());
+			employee.setUpdatedAt(LocalDate.now());
 			empList.add(employee);
 		}
 
@@ -137,9 +154,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		if (empPojoList.isEmpty()) {
 			throw new EmployeeCommonException("No employees found with salary greater than: " + salary);
 
-		} else {
-			return empPojoList;
 		}
+		return empPojoList;
+
 	}
 
 	@Override
