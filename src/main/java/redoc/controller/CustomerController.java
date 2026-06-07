@@ -33,16 +33,5 @@ public class CustomerController {
     public Customer fetchCustomerById(@PathVariable int id) {
         return customerService.getCustomerById(id);
     }
-
-    @DeleteMapping("/delete/{id}")
-    public String deleteCustomerById(@PathVariable int id) {
-        customerService.deleteCustomerById(id);
-        return "deleted ";
-    }
-
-    @GetMapping("/getCustomerDetails")
-    public List<Customer> getMethodName() {
-        return customerService.getCustomerList();
-    }
-
+    
 }
