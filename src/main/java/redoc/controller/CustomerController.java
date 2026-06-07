@@ -40,8 +40,4 @@ public class CustomerController {
         return "deleted ";
     }
     
-    @GetMapping("/getCustomerDetails")
-    public List<Customer> getMethodName() {
-        return customerService.getCustomerList();
-    }
 }
