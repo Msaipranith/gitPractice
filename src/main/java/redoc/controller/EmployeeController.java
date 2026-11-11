@@ -22,6 +22,9 @@ import redoc.service.EmployeeService;
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
+	
+	//http://localhost:8080/swagger-ui/index.html -> swagger url
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
 	private final EmployeeService empService;
